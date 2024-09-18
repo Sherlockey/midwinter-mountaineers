@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://g26aibp6adh7"]
+
+[ext_resource type="Script" path="res://rope.gd" id="1_mf1pl"]
+
+[node name="Rope" type="Line2D"]
+width = 1.0
+default_color = Color(0.745098, 0.498039, 0.247059, 1)
+script = ExtResource("1_mf1pl")

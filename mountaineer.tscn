@@ -1,0 +1,181 @@
+[gd_scene load_steps=14 format=3 uid="uid://b3earbls446la"]
+
+[ext_resource type="Script" path="res://mountaineer.gd" id="1_anhhl"]
+[ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://mountaineer.png" id="2_e5c6m"]
+[ext_resource type="PackedScene" uid="uid://g26aibp6adh7" path="res://rope.tscn" id="3_o43o6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
+radius = 4.0
+height = 20.0
+
+[sub_resource type="Animation" id="Animation_q1l5n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_w186i"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ld5j3"]
+resource_name = "fall"
+length = 0.001
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_vi8k3"]
+resource_name = "idle"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_463so"]
+resource_name = "jump"
+length = 0.001
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_7jol4"]
+resource_name = "rope_cast"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_lfnpp"]
+resource_name = "rope_ride"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+
+[sub_resource type="Animation" id="Animation_2aux5"]
+resource_name = "run"
+length = 0.15
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_itqri"]
+_data = {
+"RESET": SubResource("Animation_q1l5n"),
+"attack": SubResource("Animation_w186i"),
+"fall": SubResource("Animation_ld5j3"),
+"idle": SubResource("Animation_vi8k3"),
+"jump": SubResource("Animation_463so"),
+"rope_cast": SubResource("Animation_7jol4"),
+"rope_ride": SubResource("Animation_lfnpp"),
+"run": SubResource("Animation_2aux5")
+}
+
+[node name="Mountaineer" type="CharacterBody2D"]
+script = ExtResource("1_anhhl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_e5c6m")
+hframes = 12
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_iunhp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_itqri")
+}
+autoplay = "idle"
+
+[node name="Rope" parent="." instance=ExtResource("3_o43o6")]
+position = Vector2(1, 2)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(1, 0)
