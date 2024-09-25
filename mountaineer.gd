@@ -1,6 +1,4 @@
-class_name Mountaineer
 extends CharacterBody2D
-
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
@@ -12,6 +10,7 @@ var end_addition := Vector2(-100, -100)
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var rope: Rope = $Rope
+@onready var attack_collision_polygon_2d: CollisionPolygon2D = $Area2D/AttackCollisionPolygon2D
 
 
 func _physics_process(delta: float) -> void:
@@ -55,11 +54,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		can_move = false
 		animation_player.play("attack")
+		# TODO better attack collision detection timing etc
+		attack_collision_polygon_2d.disabled = false
 		await animation_player.animation_finished
+		attack_collision_polygon_2d.disabled = true
 		can_move = true
 	
 	if event.is_action_pressed("rope"):
-		#TODO better if check here for if rope area collision etc
+		# TODO better if check here for if rope area collision etc
 		if not is_on_floor():
 			return
 		
@@ -69,7 +71,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		rope.cast(Vector2.ZERO, end)
 		await animation_player.animation_finished
 		
-		#TODO if check here to make sure still riding?
+		# TODO if check here to make sure still riding?
 		animation_player.play("rope_ride")
 		await animation_player.animation_finished
 		can_move = true
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.has_method("take_damage"):
+		body.take_damage()

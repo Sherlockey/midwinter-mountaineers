@@ -1,0 +1,117 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgdyprhadx57k"]
+
+[ext_resource type="Script" path="res://hare.gd" id="1_y6dhx"]
+[ext_resource type="Texture2D" uid="uid://c3y6bdfj1xnhj" path="res://hare.png" id="2_q10yj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
+radius = 6.0
+height = 14.0
+
+[sub_resource type="Animation" id="Animation_ho6i4"]
+resource_name = "idle"
+length = 0.001
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_yijdw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_cy7qk"]
+resource_name = "run"
+length = 0.45
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_5ioy2"]
+resource_name = "damaged"
+length = 0.001
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k2v2e"]
+_data = {
+"RESET": SubResource("Animation_yijdw"),
+"hurt": SubResource("Animation_5ioy2"),
+"idle": SubResource("Animation_ho6i4"),
+"run": SubResource("Animation_cy7qk")
+}
+
+[node name="Hare" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_y6dhx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_q10yj")
+hframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_iunhp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_k2v2e")
+}
+autoplay = "idle"
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-10, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(10, 0)
+
+[node name="HurtFlipTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="WaitTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="HurtFlipTimer" to="." method="_on_hurt_flip_timer_timeout"]
