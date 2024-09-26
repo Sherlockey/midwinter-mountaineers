@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-enum State { IDLE, RUN, HURT }
+enum Hare_State { IDLE, RUN, HURT }
 
 const SPEED : float = 60
 
-var state : State
+var state : Hare_State
 var direction : int = -1
 
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
@@ -18,11 +18,11 @@ var direction : int = -1
 func _ready() -> void:
 	wait_timer.start()
 	await wait_timer.timeout
-	_set_state(State.RUN)
+	_set_state(Hare_State.RUN)
 
 
 func _physics_process(delta: float) -> void:
-	if state == State.IDLE:
+	if state == Hare_State.IDLE:
 		return
 	
 	if ray_cast_right.is_colliding():
@@ -36,20 +36,20 @@ func _physics_process(delta: float) -> void:
 
 
 func take_damage() -> void:
-	_set_state(State.HURT)
+	_set_state(Hare_State.HURT)
 	hurt_flip_timer.start()
 	# TODO change this to be the direction away from the hitter
 	direction = -direction
 
 
-func _set_state(new_state: State) -> void:
+func _set_state(new_state: Hare_State) -> void:
 	state = new_state
 	# TODO fix below, it is not safe at all
-	var new_state_string : String = State.keys()[new_state].to_lower()
+	var new_state_string : String = Hare_State.keys()[new_state].to_lower()
 	animation_player.play(new_state_string)
 
 
 func _on_hurt_flip_timer_timeout() -> void:
-	if state == State.HURT:
+	if state == Hare_State.HURT:
 		sprite_2d.flip_h = !sprite_2d.flip_h
 		hurt_flip_timer.start()

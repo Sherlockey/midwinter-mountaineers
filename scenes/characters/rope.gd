@@ -1,3 +1,4 @@
+class_name Rope
 extends Area2D
 
 signal connected(duration : float, speed : float)

@@ -1,8 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3earbls446la"]
+[gd_scene load_steps=24 format=3 uid="uid://b3earbls446la"]
 
-[ext_resource type="Script" path="res://scenes/characters/mountaineer.gd" id="1_anhhl"]
-[ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_e5c6m"]
-[ext_resource type="PackedScene" uid="uid://b4ochdmah8r2m" path="res://scenes/characters/rope.tscn" id="3_o43o6"]
+[ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
+[ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
+[ext_resource type="PackedScene" uid="uid://b4ochdmah8r2m" path="res://scenes/characters/rope.tscn" id="3_oy4eh"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_ls4fq"]
+[ext_resource type="Script" path="res://scripts/idle.gd" id="5_twl5m"]
+[ext_resource type="Script" path="res://scripts/running.gd" id="6_55bl1"]
+[ext_resource type="Script" path="res://scripts/jumping.gd" id="7_kvlq3"]
+[ext_resource type="Script" path="res://scripts/falling.gd" id="8_dmxhd"]
+[ext_resource type="Script" path="res://scripts/attacking.gd" id="9_rvi7u"]
+[ext_resource type="Script" path="res://scripts/rope_casting.gd" id="10_cq5t8"]
+[ext_resource type="Script" path="res://scripts/rope_riding.gd" id="11_rknhc"]
+[ext_resource type="Script" path="res://scripts/flare.gd" id="12_tu33i"]
+[ext_resource type="Script" path="res://scripts/latch.gd" id="13_ud1je"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
 radius = 4.0
@@ -157,13 +167,13 @@ _data = {
 "run": SubResource("Animation_2aux5")
 }
 
-[node name="Mountaineer" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_anhhl")
+script = ExtResource("1_e6efu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-12, -24)
-texture = ExtResource("2_e5c6m")
+texture = ExtResource("2_qy41u")
 centered = false
 hframes = 12
 frame = 1
@@ -183,7 +193,7 @@ position = Vector2(0, -12)
 polygon = PackedVector2Array(-25, 0, -17, 12, 0, 12, 6, -15, 0, -21, -16, -15)
 disabled = true
 
-[node name="Rope" parent="." instance=ExtResource("3_o43o6")]
+[node name="Rope" parent="." instance=ExtResource("3_oy4eh")]
 position = Vector2(-3, -9)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -191,6 +201,36 @@ libraries = {
 "": SubResource("AnimationLibrary_itqri")
 }
 autoplay = "idle"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_ls4fq")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_twl5m")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("6_55bl1")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("7_kvlq3")
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("8_dmxhd")
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("9_rvi7u")
+
+[node name="RopeCasting" type="Node" parent="StateMachine"]
+script = ExtResource("10_cq5t8")
+
+[node name="RopeRiding" type="Node" parent="StateMachine"]
+script = ExtResource("11_rknhc")
+
+[node name="Flare" type="Node" parent="StateMachine"]
+script = ExtResource("12_tu33i")
+
+[node name="Latch" type="Node" parent="StateMachine"]
+script = ExtResource("13_ud1je")
 
 [connection signal="body_entered" from="AttackArea" to="." method="_on_area_2d_body_entered"]
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]

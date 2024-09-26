@@ -1,0 +1,255 @@
+[gd_scene load_steps=28 format=3 uid="uid://b3earbls446la"]
+
+[ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
+[ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
+[ext_resource type="PackedScene" uid="uid://b4ochdmah8r2m" path="res://scenes/characters/rope.tscn" id="3_oy4eh"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_ls4fq"]
+[ext_resource type="Script" path="res://scripts/idle.gd" id="5_twl5m"]
+[ext_resource type="Script" path="res://scripts/running.gd" id="6_55bl1"]
+[ext_resource type="Script" path="res://scripts/jumping.gd" id="7_kvlq3"]
+[ext_resource type="Script" path="res://scripts/falling.gd" id="8_dmxhd"]
+[ext_resource type="Script" path="res://scripts/attacking.gd" id="9_rvi7u"]
+[ext_resource type="Script" path="res://scripts/attacking_running.gd" id="10_6hby4"]
+[ext_resource type="Script" path="res://scripts/rope_casting.gd" id="10_cq5t8"]
+[ext_resource type="Script" path="res://scripts/rope_casting_running.gd" id="11_jpe02"]
+[ext_resource type="Script" path="res://scripts/rope_riding.gd" id="11_rknhc"]
+[ext_resource type="Script" path="res://scripts/rope_casting_jumping.gd" id="12_hkmts"]
+[ext_resource type="Script" path="res://scripts/flaring.gd" id="12_tu33i"]
+[ext_resource type="Script" path="res://scripts/latching.gd" id="13_ud1je"]
+[ext_resource type="Script" path="res://scripts/flaring_running.gd" id="15_r7k0c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
+radius = 4.0
+height = 20.0
+
+[sub_resource type="Animation" id="Animation_q1l5n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_w186i"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_ld5j3"]
+resource_name = "fall"
+length = 0.001
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_vi8k3"]
+resource_name = "idle"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_463so"]
+resource_name = "jump"
+length = 0.001
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_7jol4"]
+resource_name = "rope_cast"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_lfnpp"]
+resource_name = "rope_ride"
+length = 0.9
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+
+[sub_resource type="Animation" id="Animation_2aux5"]
+resource_name = "run"
+length = 0.15
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_itqri"]
+_data = {
+"RESET": SubResource("Animation_q1l5n"),
+"attack": SubResource("Animation_w186i"),
+"fall": SubResource("Animation_ld5j3"),
+"idle": SubResource("Animation_vi8k3"),
+"jump": SubResource("Animation_463so"),
+"rope_cast": SubResource("Animation_7jol4"),
+"rope_ride": SubResource("Animation_lfnpp"),
+"run": SubResource("Animation_2aux5")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_e6efu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-12, -24)
+texture = ExtResource("2_qy41u")
+centered = false
+hframes = 12
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_iunhp")
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="AttackCollisionPolygon" type="CollisionPolygon2D" parent="AttackArea"]
+visible = false
+position = Vector2(0, -12)
+polygon = PackedVector2Array(-25, 0, -17, 12, 0, 12, 6, -15, 0, -21, -16, -15)
+disabled = true
+
+[node name="Rope" parent="." instance=ExtResource("3_oy4eh")]
+position = Vector2(-3, -9)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_itqri")
+}
+autoplay = "idle"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_ls4fq")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_twl5m")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("6_55bl1")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("7_kvlq3")
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("8_dmxhd")
+
+[node name="Attacking" type="Node" parent="StateMachine"]
+script = ExtResource("9_rvi7u")
+
+[node name="AttackingRunning" type="Node" parent="StateMachine"]
+script = ExtResource("10_6hby4")
+
+[node name="RopeCasting" type="Node" parent="StateMachine"]
+script = ExtResource("10_cq5t8")
+
+[node name="RopeCastingJumping" type="Node" parent="StateMachine"]
+script = ExtResource("12_hkmts")
+
+[node name="RopeCastingRunning" type="Node" parent="StateMachine"]
+script = ExtResource("11_jpe02")
+
+[node name="RopeRiding" type="Node" parent="StateMachine"]
+script = ExtResource("11_rknhc")
+
+[node name="Flaring" type="Node" parent="StateMachine"]
+script = ExtResource("12_tu33i")
+
+[node name="FlaringRunning" type="Node" parent="StateMachine"]
+script = ExtResource("15_r7k0c")
+
+[node name="FlaringJumping" type="Node" parent="StateMachine"]
+script = ExtResource("15_r7k0c")
+
+[node name="Latching" type="Node" parent="StateMachine"]
+script = ExtResource("13_ud1je")
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="connected" from="Rope" to="." method="_on_rope_connected"]
