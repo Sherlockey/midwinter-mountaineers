@@ -94,7 +94,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_7jol4"]
 resource_name = "rope_cast"
-length = 0.6
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -193,3 +193,4 @@ libraries = {
 autoplay = "idle"
 
 [connection signal="body_entered" from="AttackArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="connected" from="Rope" to="." method="_on_rope_connected"]

@@ -8,6 +8,7 @@ var can_move: bool = true
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var attack_collision_polygon: CollisionPolygon2D = $AttackArea/AttackCollisionPolygon
+@onready var rope: Area2D = $Rope
 
 
 func _physics_process(delta: float) -> void:
@@ -17,7 +18,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
@@ -40,7 +41,7 @@ func _physics_process(delta: float) -> void:
 			animation_player.play("jump")
 		else:
 			animation_player.play("fall")
-
+	
 	move_and_slide()
 
 
@@ -65,6 +66,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		can_move = false
 		animation_player.play("rope_cast")
 		await animation_player.animation_finished
+		rope.cast()
 		
 		# TODO if check here to make sure still riding?
 		animation_player.play("rope_ride")
@@ -72,6 +74,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		can_move = true
 
 
+func _stop_rope_riding() -> void:
+	print("stop_rope_riding")
+	velocity = Vector2.ZERO
+
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage"):
 		body.take_damage()
+
+
+func _on_rope_connected(duration : float, speed : float) -> void:
+	print("on_rope_connected")
+	get_tree().create_timer(duration).timeout.connect(_stop_rope_riding)
+	animation_player.play("rope_ride")
+	velocity = Vector2(speed, 0)
