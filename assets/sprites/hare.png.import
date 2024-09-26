@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3y6bdfj1xnhj"
-path="res://.godot/imported/hare.png-ed4a0370d4a78ae8079df589d2115320.ctex"
+path="res://.godot/imported/hare.png-fc681ea4207689032bd90f984061aed4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://hare.png"
-dest_files=["res://.godot/imported/hare.png-ed4a0370d4a78ae8079df589d2115320.ctex"]
+source_file="res://assets/sprites/hare.png"
+dest_files=["res://.godot/imported/hare.png-fc681ea4207689032bd90f984061aed4.ctex"]
 
 [params]
 

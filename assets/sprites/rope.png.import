@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck7y1fncgnimx"
-path="res://.godot/imported/mountaineer.png-7ec579a21d0f223abd13165ec843ee9e.ctex"
+uid="uid://dh2mxp2wp044l"
+path="res://.godot/imported/rope.png-2000a6b4d6c6ce2b5cd8c59e0915f090.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mountaineer.png"
-dest_files=["res://.godot/imported/mountaineer.png-7ec579a21d0f223abd13165ec843ee9e.ctex"]
+source_file="res://assets/sprites/rope.png"
+dest_files=["res://.godot/imported/rope.png-2000a6b4d6c6ce2b5cd8c59e0915f090.ctex"]
 
 [params]
 

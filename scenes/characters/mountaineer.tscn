@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://b3earbls446la"]
 
-[ext_resource type="Script" path="res://mountaineer.gd" id="1_anhhl"]
-[ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://mountaineer.png" id="2_e5c6m"]
-[ext_resource type="PackedScene" uid="uid://g26aibp6adh7" path="res://rope.tscn" id="3_o43o6"]
+[ext_resource type="Script" path="res://scenes/characters/mountaineer.gd" id="1_anhhl"]
+[ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_e5c6m"]
+[ext_resource type="PackedScene" uid="uid://b4ochdmah8r2m" path="res://scenes/characters/rope.tscn" id="3_o43o6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
 radius = 4.0
@@ -94,8 +94,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_7jol4"]
 resource_name = "rope_cast"
-length = 0.4
-step = 0.15
+length = 0.6
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -111,7 +111,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_lfnpp"]
 resource_name = "rope_ride"
-length = 0.001
+length = 0.9
 loop_mode = 1
 step = 0.15
 tracks/0/type = "value"
@@ -162,23 +162,29 @@ collision_layer = 2
 script = ExtResource("1_anhhl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-12, -24)
 texture = ExtResource("2_e5c6m")
+centered = false
 hframes = 12
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, 2)
+position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_iunhp")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="AttackArea" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 4
 
-[node name="AttackCollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="AttackCollisionPolygon" type="CollisionPolygon2D" parent="AttackArea"]
 visible = false
-polygon = PackedVector2Array(-25, 0, -17, 12, 5, 12, 18, -15, 0, -21, -16, -15)
+position = Vector2(0, -12)
+polygon = PackedVector2Array(-25, 0, -17, 12, 0, 12, 6, -15, 0, -21, -16, -15)
 disabled = true
+
+[node name="Rope" parent="." instance=ExtResource("3_o43o6")]
+position = Vector2(-3, -9)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -186,10 +192,4 @@ libraries = {
 }
 autoplay = "idle"
 
-[node name="Rope" parent="." instance=ExtResource("3_o43o6")]
-position = Vector2(1, 2)
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(1, 0)
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_area_2d_body_entered"]

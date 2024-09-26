@@ -24,7 +24,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if state == State.IDLE:
 		return
-
+	
 	if ray_cast_right.is_colliding():
 		direction = -1
 		sprite_2d.flip_h = false
