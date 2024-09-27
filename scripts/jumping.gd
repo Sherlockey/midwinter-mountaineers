@@ -1,5 +1,6 @@
 extends PlayerState
 
+
 func enter(previous_state_path: String, data := {}) -> void:
 	player.velocity.y = -player.jump_impulse
 	player.animation_player.play("jump")
@@ -11,9 +12,9 @@ func physics_update(delta: float) -> void:
 	player.move_and_slide()
 	
 	if Input.is_action_pressed("move_left"):
-		player.sprite_2d.flip_h = false
+		player.scale.x = player.scale.y * 1
 	if Input.is_action_pressed("move_right"):
-		player.sprite_2d.flip_h = true
+		player.scale.x = player.scale.y * -1
 
 	if player.velocity.y >= 0:
 		finished.emit(FALLING)

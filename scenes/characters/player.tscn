@@ -188,11 +188,11 @@ position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_iunhp")
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 4
 
 [node name="AttackCollisionPolygon" type="CollisionPolygon2D" parent="AttackArea"]
-visible = false
 position = Vector2(0, -12)
 polygon = PackedVector2Array(-25, 0, -17, 12, 0, 12, 6, -15, 0, -21, -16, -15)
 disabled = true

@@ -1,5 +1,6 @@
 extends PlayerState
 
+
 func enter(previous_state_path: String, data := {}) -> void:
 	# TODO add jump velocity here like Jumping state
 	player.animation_player.play("rope_cast")

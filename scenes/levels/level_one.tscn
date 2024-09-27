@@ -26,5 +26,5 @@ position = Vector2(221, 65)
 [node name="Hare" parent="." instance=ExtResource("2_jmrac")]
 position = Vector2(337, 150)
 
-[node name="StaticBody2D2" parent="." instance=ExtResource("3_w86x8")]
+[node name="TestStaticBody2D" parent="." instance=ExtResource("3_w86x8")]
 position = Vector2(66, 150)

@@ -1,27 +1,33 @@
 class_name Rope
-extends Area2D
+extends Marker2D
 
-signal connected(duration : float, speed : float)
+signal connected(duration : float)
+signal finished()
 
-const PULL_SPEED : float = 240.0
+var collided : bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var shape_cast_2d: ShapeCast2D = $ShapeCast2D
 
 
 func cast() -> void:
 	animation_player.play("cast")
 	await animation_player.animation_finished
-	if animation_player.is_playing() == false:
+	if collided == false:
 		animation_player.play("pull")
+		await animation_player.animation_finished
+		finished.emit()
 
 
-func _on_body_entered(body: Node2D) -> void:
-	print("hi " + str(body))
-	if animation_player.is_playing():
-		var interrupted_animation_time : float = animation_player.current_animation_position
-		print(interrupted_animation_time)
-		animation_player.play("pull")
-		animation_player.call_deferred("seek", interrupted_animation_time * 3.0)
-		var duration : float = animation_player.current_animation_length - animation_player.current_animation_position
-		connected.emit(duration, PULL_SPEED)
-	
+func _physics_process(delta: float) -> void:
+	if shape_cast_2d.is_colliding():
+		collided = true
+		if animation_player.is_playing():
+			var interrupted_animation_time : float = animation_player.current_animation_position
+			animation_player.play("pull")
+			animation_player.seek(0.3 - interrupted_animation_time * 3.0)
+			var duration : float = animation_player.current_animation_length - animation_player.current_animation_position
+			connected.emit(duration)
+			await animation_player.animation_finished
+			collided = false
+			finished.emit()
