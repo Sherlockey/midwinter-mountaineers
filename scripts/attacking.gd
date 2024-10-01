@@ -4,11 +4,10 @@ extends PlayerState
 
 
 func enter(previous_state_path: String, data := {}) -> void:
-	if is_equal_approx(player.velocity.x, 0.0):
-		player.animation_player.play("attack")
-	else:
-		# TODO change to "attack_running"
-		player.animation_player.play("attack")
+	# TODO immediately start a timer which will cause a VFX to come out of the attack arc
+	# TODO when that timer is up enable the hitbox then disable the hitbox after another timer
+	player.animation_player.play("attack")
+	player.attack_animation_player.play("attack_vfx")
 	await player.animation_player.animation_finished
 	if player.state_machine.state == self:
 		finished.emit(IDLE)
