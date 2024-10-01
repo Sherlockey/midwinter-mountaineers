@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+var can_latch : bool = true
+
 @export var speed := 100.0
 @export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var jump_impulse := 300.0

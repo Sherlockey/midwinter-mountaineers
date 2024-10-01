@@ -26,5 +26,5 @@ func physics_update(delta: float) -> void:
 		finished.emit(ROPE_CASTING)
 	if Input.is_action_pressed("flare"):
 		finished.emit(FLARING)
-	if Input.is_action_pressed("latch"):
+	if Input.is_action_pressed("latch") and player.can_latch:
 		finished.emit(LATCHING)
