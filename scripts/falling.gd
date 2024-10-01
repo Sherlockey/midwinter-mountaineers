@@ -15,6 +15,8 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_pressed("move_right"):
 		player.scale.x = player.scale.y * -1
 
+	if Input.is_action_pressed("rope"):
+		finished.emit(ROPE_CASTING)
 	if Input.is_action_pressed("flare"):
 		finished.emit(FLARING)
 	if Input.is_action_pressed("latch"):

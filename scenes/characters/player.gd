@@ -8,3 +8,4 @@ extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var rope: Rope = $Rope
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var state_machine: StateMachine = $StateMachine

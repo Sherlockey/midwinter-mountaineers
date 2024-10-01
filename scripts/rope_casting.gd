@@ -4,37 +4,55 @@ extends PlayerState
 func enter(previous_state_path: String, data := {}) -> void:
 	player.animation_player.play("rope_cast")
 	await player.animation_player.animation_finished
-	player.rope.cast()
-	player.rope.connected.connect(_on_rope_collided)
-	player.rope.finished.connect(_on_rope_finished)
+	if player.state_machine.state == self:
+		player.rope.cast()
+	
+	if not player.rope.connected.is_connected(_on_rope_collided):
+		player.rope.connected.connect(_on_rope_collided)
+	if not player.rope.finished.is_connected(_on_rope_finished):
+		player.rope.finished.connect(_on_rope_finished)
 
 
 func physics_update(delta: float) -> void:
-	#should this still be here?
+	var input_direction_x := Input.get_axis("move_left", "move_right")
+	player.velocity.x = player.speed * input_direction_x
+	player.velocity.y += player.gravity * delta
+	
+	if Input.is_action_pressed("move_left") and player.scale.y == -1:
+		player.rope.cancel_cast()
+	elif Input.is_action_just_pressed("move_right") and player.scale.y == 1:
+		player.rope.cancel_cast()
+	elif Input.is_action_just_pressed("jump"):
+		player.velocity.y = -player.jump_impulse
+	elif Input.is_action_just_pressed("attack"):
+		player.rope.cancel_cast()
+		finished.emit(ATTACKING)
+	
 	player.move_and_slide()
 
 
-	if Input.is_action_just_pressed("jump"):
-		exit()
-		finished.emit(ROPE_CASTING_JUMPING)
-	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
-		exit()
-		finished.emit(ROPE_CASTING_RUNNING)
-
-
-func _on_rope_collided(duration : float) -> void:
-	var data = { "duration" : duration}
+func _on_rope_collided(duration : float, direction_scalar : int) -> void:
+	var data := { "duration" : duration, "direction_scalar" : direction_scalar}
 	exit()
 	finished.emit(ROPE_RIDING, data)
 
 
 func _on_rope_finished() -> void:
 	if player.is_on_floor():
-		exit()
-		finished.emit(IDLE)
+		if Input.is_action_just_pressed("attack"):
+			exit()
+			finished.emit(ATTACKING)
+		else:
+			exit()
+			finished.emit(IDLE)
 	else:
-		exit()
-		finished.emit(FALLING)
+		if player.velocity.y > 0:
+			exit()
+			finished.emit(FALLING)
+		else:
+			exit()
+			var data := { "jump": false }
+			finished.emit(JUMPING, data)
 
 
 func exit() -> void:

@@ -20,7 +20,7 @@ position = Vector2(0, 150)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("WorldBoundaryShape2D_1tg2g")
 
-[node name="Mountaineer" parent="." instance=ExtResource("1_iy506")]
+[node name="Player" parent="." instance=ExtResource("1_iy506")]
 position = Vector2(221, 65)
 
 [node name="Hare" parent="." instance=ExtResource("2_jmrac")]

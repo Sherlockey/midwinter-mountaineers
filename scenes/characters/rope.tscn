@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/characters/rope.gd" id="1_mf1pl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_moead"]
-size = Vector2(1, 22)
+size = Vector2(1, 2)
 
 [sub_resource type="Animation" id="Animation_kne4l"]
 length = 0.001
@@ -170,6 +170,18 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]

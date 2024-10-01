@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b3earbls446la"]
+[gd_scene load_steps=26 format=3 uid="uid://b3earbls446la"]
 
 [ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
 [ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
@@ -11,9 +11,7 @@
 [ext_resource type="Script" path="res://scripts/attacking.gd" id="9_rvi7u"]
 [ext_resource type="Script" path="res://scripts/attacking_running.gd" id="10_6hby4"]
 [ext_resource type="Script" path="res://scripts/rope_casting.gd" id="10_cq5t8"]
-[ext_resource type="Script" path="res://scripts/rope_casting_running.gd" id="11_jpe02"]
 [ext_resource type="Script" path="res://scripts/rope_riding.gd" id="11_rknhc"]
-[ext_resource type="Script" path="res://scripts/rope_casting_jumping.gd" id="12_hkmts"]
 [ext_resource type="Script" path="res://scripts/flaring.gd" id="12_tu33i"]
 [ext_resource type="Script" path="res://scripts/latching.gd" id="13_ud1je"]
 [ext_resource type="Script" path="res://scripts/flaring_running.gd" id="15_r7k0c"]
@@ -229,12 +227,6 @@ script = ExtResource("10_6hby4")
 
 [node name="RopeCasting" type="Node" parent="StateMachine"]
 script = ExtResource("10_cq5t8")
-
-[node name="RopeCastingJumping" type="Node" parent="StateMachine"]
-script = ExtResource("12_hkmts")
-
-[node name="RopeCastingRunning" type="Node" parent="StateMachine"]
-script = ExtResource("11_jpe02")
 
 [node name="RopeRiding" type="Node" parent="StateMachine"]
 script = ExtResource("11_rknhc")

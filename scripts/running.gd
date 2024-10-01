@@ -21,10 +21,10 @@ func physics_update(delta: float) -> void:
 	elif Input.is_action_just_pressed("jump"):
 		finished.emit(JUMPING)
 	elif Input.is_action_just_pressed("attack"):
-		finished.emit(ATTACKING_RUNNING)
+		finished.emit(ATTACKING)
 	elif Input.is_action_just_pressed("rope"):
-		finished.emit(ROPE_CASTING_RUNNING)
+		finished.emit(ROPE_CASTING)
 	elif Input.is_action_just_pressed("flare"):
-		finished.emit(FLARING_RUNNING)
+		finished.emit(FLARING)
 	elif is_equal_approx(input_direction_x, 0.0):
 		finished.emit(IDLE)

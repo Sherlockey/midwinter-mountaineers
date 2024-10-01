@@ -17,13 +17,16 @@ config/icon="res://assets/sprites/mountaineer_icon.png"
 
 [debug]
 
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
 gdscript/warnings/untyped_declaration=1
 
 [display]
 
 window/size/viewport_width=432
 window/size/viewport_height=243
-window/size/mode=2
+window/size/window_width_override=1728
+window/size/window_height_override=972
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 window/warnings/untyped_declaration=0
