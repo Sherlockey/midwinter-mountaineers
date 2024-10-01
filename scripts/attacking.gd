@@ -12,6 +12,7 @@ func enter(previous_state_path: String, data := {}) -> void:
 	if player.state_machine.state == self:
 		finished.emit(IDLE)
 
+
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
 	player.velocity.x = player.speed * input_direction_x
@@ -25,9 +26,8 @@ func physics_update(delta: float) -> void:
 
 	if not player.is_on_floor():
 		finished.emit(FALLING)
-	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
-		finished.emit(RUNNING)
 	elif Input.is_action_just_pressed("jump"):
+		player.attack_animation_player.play("RESET")
 		finished.emit(JUMPING)
 	elif Input.is_action_just_pressed("flare"):
 		finished.emit(FLARING)
@@ -37,6 +37,7 @@ func physics_update(delta: float) -> void:
 
 func exit() -> void:
 	attack_area.monitoring = false
+	player.speed = 100.0
 
 
 func enable_attack_area_monitoring() -> void:
