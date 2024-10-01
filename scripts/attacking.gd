@@ -1,5 +1,7 @@
 extends PlayerState
 
+@onready var attack_area: Area2D = $"../../AttackArea"
+
 
 func enter(previous_state_path: String, data := {}) -> void:
 	player.animation_player.play("attack")
@@ -27,3 +29,16 @@ func physics_update(delta: float) -> void:
 		finished.emit(FLARING)
 	elif Input.is_action_just_pressed("rope"):
 		finished.emit(ROPE_CASTING)
+
+
+func exit() -> void:
+	attack_area.monitoring = false
+
+
+func enable_attack_area_monitoring() -> void:
+	attack_area.monitoring = true
+
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body.has_method("take_damage"):
+		body.take_damage()

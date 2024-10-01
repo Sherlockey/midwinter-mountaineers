@@ -33,24 +33,19 @@ func physics_update(delta: float) -> void:
 
 func _on_rope_collided(duration : float, direction_scalar : int) -> void:
 	var data := { "duration" : duration, "direction_scalar" : direction_scalar}
-	exit()
 	finished.emit(ROPE_RIDING, data)
 
 
 func _on_rope_finished() -> void:
 	if player.is_on_floor():
 		if Input.is_action_just_pressed("attack"):
-			exit()
 			finished.emit(ATTACKING)
 		else:
-			exit()
 			finished.emit(IDLE)
 	else:
 		if player.velocity.y > 0:
-			exit()
 			finished.emit(FALLING)
 		else:
-			exit()
 			var data := { "jump": false }
 			finished.emit(JUMPING, data)
 

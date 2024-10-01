@@ -4,8 +4,10 @@ enum Hare_State { IDLE, RUN, HURT }
 
 const SPEED : float = 60
 
+@export var direction : int = -1
+
 var state : Hare_State
-var direction : int = -1
+var initialized_direction : int
 
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 @onready var ray_cast_right: RayCast2D = $RayCastRight
@@ -16,6 +18,7 @@ var direction : int = -1
 
 
 func _ready() -> void:
+	initialized_direction = direction
 	wait_timer.start()
 	await wait_timer.timeout
 	_set_state(Hare_State.RUN)
@@ -36,10 +39,11 @@ func _physics_process(delta: float) -> void:
 
 
 func take_damage() -> void:
-	_set_state(Hare_State.HURT)
-	hurt_flip_timer.start()
-	# TODO change this to be the direction away from the hitter
-	direction = -direction
+	if state != Hare_State.HURT:
+		_set_state(Hare_State.HURT)
+		hurt_flip_timer.start()
+		# TODO change this to be the direction away from the hitter
+		direction = -direction
 
 
 func _set_state(new_state: Hare_State) -> void:
@@ -53,3 +57,12 @@ func _on_hurt_flip_timer_timeout() -> void:
 	if state == Hare_State.HURT:
 		sprite_2d.flip_h = !sprite_2d.flip_h
 		hurt_flip_timer.start()
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	_set_state(Hare_State.IDLE)
+	direction = initialized_direction
+	sprite_2d.flip_h = direction == 1
+	wait_timer.start()
+	await wait_timer.timeout
+	_set_state(Hare_State.RUN)
