@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b3earbls446la"]
+[gd_scene load_steps=31 format=3 uid="uid://b3earbls446la"]
 
 [ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
 [ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
@@ -197,10 +197,54 @@ tracks/0/keys = {
 "values": [1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_hrv5p"]
+resource_name = "attack_running"
+length = 0.4
+step = 0.0125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.175),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [12, 13, 14]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/Attacking")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable_attack_area_monitoring"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, 75.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_itqri"]
 _data = {
 "RESET": SubResource("Animation_q1l5n"),
 "attack": SubResource("Animation_w186i"),
+"attack_running": SubResource("Animation_hrv5p"),
 "fall": SubResource("Animation_ld5j3"),
 "idle": SubResource("Animation_vi8k3"),
 "jump": SubResource("Animation_463so"),
@@ -282,7 +326,7 @@ position = Vector2(-3, -9)
 position = Vector2(-12, -24)
 texture = ExtResource("2_qy41u")
 centered = false
-hframes = 12
+hframes = 15
 frame = 1
 
 [node name="AttackSprite2D" type="Sprite2D" parent="."]
