@@ -4,9 +4,14 @@ extends PlayerState
 
 
 func enter(previous_state_path: String, data := {}) -> void:
-	player.animation_player.play("attack")
+	if is_equal_approx(player.velocity.x, 0.0):
+		player.animation_player.play("attack")
+	else:
+		# TODO change to "attack_running"
+		player.animation_player.play("attack")
 	await player.animation_player.animation_finished
-	finished.emit(IDLE)
+	if player.state_machine.state == self:
+		finished.emit(IDLE)
 
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
