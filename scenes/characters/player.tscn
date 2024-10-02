@@ -1,8 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://b3earbls446la"]
+[gd_scene load_steps=34 format=3 uid="uid://b3earbls446la"]
 
 [ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
 [ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
-[ext_resource type="Texture2D" uid="uid://4r6dd4ielg58" path="res://assets/sprites/attack.png" id="3_3vfw0"]
+[ext_resource type="Texture2D" uid="uid://4r6dd4ielg58" path="res://assets/sprites/attack_vfx.png" id="3_3vfw0"]
 [ext_resource type="PackedScene" uid="uid://b4ochdmah8r2m" path="res://scenes/characters/rope.tscn" id="3_oy4eh"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_ls4fq"]
 [ext_resource type="Script" path="res://scripts/idle.gd" id="5_twl5m"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://scripts/rope_riding.gd" id="11_rknhc"]
 [ext_resource type="Script" path="res://scripts/flaring.gd" id="12_tu33i"]
 [ext_resource type="Script" path="res://scripts/latching.gd" id="13_ud1je"]
+[ext_resource type="PackedScene" uid="uid://dftdg7nsnh08d" path="res://scenes/vfx/flare_vfx.tscn" id="14_ohk5c"]
+[ext_resource type="PackedScene" uid="uid://suigvpjhyy0a" path="res://scenes/vfx/flare.tscn" id="14_wovvs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
 radius = 4.0
@@ -89,6 +91,49 @@ tracks/2/keys = {
 "values": [100.0, 75.0]
 }
 
+[sub_resource type="Animation" id="Animation_hrv5p"]
+resource_name = "attack_running"
+length = 0.4
+step = 0.0125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.175),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [12, 13, 14]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/Attacking")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable_attack_area_monitoring"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, 75.0]
+}
+
 [sub_resource type="Animation" id="Animation_ld5j3"]
 resource_name = "fall"
 length = 0.001
@@ -105,6 +150,37 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_0fc14"]
+resource_name = "flare"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [19, 20]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/Flaring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"cast_flare"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_vi8k3"]
@@ -140,6 +216,41 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_453gf"]
+resource_name = "latched"
+length = 0.8
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_kenp2"]
+resource_name = "latching"
+length = 0.1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [15, 16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_7jol4"]
@@ -195,90 +306,13 @@ tracks/0/keys = {
 "values": [1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_hrv5p"]
-resource_name = "attack_running"
-length = 0.4
-step = 0.0125
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.175),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [12, 13, 14]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StateMachine/Attacking")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"enable_attack_area_monitoring"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:speed")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [100.0, 75.0]
-}
-
-[sub_resource type="Animation" id="Animation_kenp2"]
-resource_name = "latching"
-length = 0.1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [15, 16, 17]
-}
-
-[sub_resource type="Animation" id="Animation_453gf"]
-resource_name = "latched"
-length = 0.5
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [17, 18]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_itqri"]
 _data = {
 "RESET": SubResource("Animation_q1l5n"),
 "attack": SubResource("Animation_w186i"),
 "attack_running": SubResource("Animation_hrv5p"),
 "fall": SubResource("Animation_ld5j3"),
+"flare": SubResource("Animation_0fc14"),
 "idle": SubResource("Animation_vi8k3"),
 "jump": SubResource("Animation_463so"),
 "latched": SubResource("Animation_453gf"),
@@ -361,7 +395,7 @@ position = Vector2(-3, -9)
 position = Vector2(-12, -24)
 texture = ExtResource("2_qy41u")
 centered = false
-hframes = 19
+hframes = 21
 frame = 1
 
 [node name="AttackSprite2D" type="Sprite2D" parent="."]
@@ -422,9 +456,19 @@ script = ExtResource("11_rknhc")
 
 [node name="Flaring" type="Node" parent="StateMachine"]
 script = ExtResource("12_tu33i")
+flare_scene = ExtResource("14_wovvs")
+flare_vfx_scene = ExtResource("14_ohk5c")
 
 [node name="Latching" type="Node" parent="StateMachine"]
 script = ExtResource("13_ud1je")
 
+[node name="FlareSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(-3, -21)
+
+[node name="FlareTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]
 [connection signal="body_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_body_entered"]
+[connection signal="timeout" from="FlareTimer" to="StateMachine/Flaring" method="_on_flare_timer_timeout"]

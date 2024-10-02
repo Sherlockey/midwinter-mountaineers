@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://dftdg7nsnh08d"]
+
+[ext_resource type="Texture2D" uid="uid://dblhs7un54mnj" path="res://assets/sprites/flare_vfx.png" id="1_jrmq7"]
+[ext_resource type="Script" path="res://scenes/vfx/flare_vfx.gd" id="1_uvrha"]
+
+[sub_resource type="Animation" id="Animation_4ch5i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_67nlc"]
+resource_name = "flare_vfx"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sg2jd"]
+_data = {
+"RESET": SubResource("Animation_4ch5i"),
+"flare_vfx": SubResource("Animation_67nlc")
+}
+
+[node name="FlareVFX" type="Node2D"]
+script = ExtResource("1_uvrha")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-9, -16)
+texture = ExtResource("1_jrmq7")
+centered = false
+hframes = 3
+region_rect = Rect2(0, 0, 72, 24)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sg2jd")
+}

@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://suigvpjhyy0a"]
+
+[ext_resource type="Script" path="res://scenes/vfx/flare.gd" id="1_lscy7"]
+[ext_resource type="Texture2D" uid="uid://dxv7dnu8ahwad" path="res://assets/sprites/flare.png" id="1_mnibr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5lp6"]
+size = Vector2(5, 8)
+
+[node name="Flare" type="Area2D"]
+top_level = true
+collision_layer = 16
+script = ExtResource("1_lscy7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, -8)
+texture = ExtResource("1_mnibr")
+centered = false
+region_enabled = true
+region_rect = Rect2(7, 6, 5, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_o5lp6")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

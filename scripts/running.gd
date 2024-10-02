@@ -26,7 +26,7 @@ func physics_update(delta: float) -> void:
 		finished.emit(ATTACKING)
 	elif Input.is_action_just_pressed("rope"):
 		finished.emit(ROPE_CASTING)
-	elif Input.is_action_just_pressed("flare"):
+	elif Input.is_action_just_pressed("flare") and player.can_flare:
 		finished.emit(FLARING)
 	elif is_equal_approx(input_direction_x, 0.0):
 		finished.emit(IDLE)
