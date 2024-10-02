@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6j5244p40wx1"]
+
+[ext_resource type="Texture2D" uid="uid://bfi3gt61u4nvk" path="res://assets/sprites/ice_block.png" id="1_1ctle"]
+[ext_resource type="Script" path="res://scenes/environment/ice_block.gd" id="1_d3po7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cat5"]
+size = Vector2(16, 6)
+
+[node name="IceBlock" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_d3po7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1ctle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_7cat5")

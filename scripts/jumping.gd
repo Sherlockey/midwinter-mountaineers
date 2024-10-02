@@ -1,5 +1,9 @@
 extends PlayerState
 
+var can_destroy_block : bool = true
+
+@onready var head_marker_2d: Marker2D = $"../../HeadMarker2D"
+
 
 func enter(previous_state_path: String, data := {}) -> void:
 	player.animation_player.play("jump")
@@ -15,11 +19,29 @@ func physics_update(delta: float) -> void:
 	player.velocity.y += player.gravity * delta
 	player.move_and_slide()
 	
+	# Handle ice_block collisions
+	if can_destroy_block:
+		var block : IceBlock = null
+		var distance : float = INF
+		for i in player.get_slide_collision_count():
+			var collider := player.get_slide_collision(i).get_collider()
+			# TODO figure out why is_in_group() isnt working here
+			# maybe because collider is an object and not a node?
+			if collider.has_method("destroy"):
+				var pos := player.get_slide_collision(i).get_position()
+				if pos.y < head_marker_2d.global_position.y:
+					var dis : float = pos.distance_to(head_marker_2d.global_position)
+					if dis < distance:
+						distance = dis
+						block = collider
+		if block:
+			block.destroy()
+	
 	if Input.is_action_pressed("move_left"):
 		player.scale.x = player.scale.y * 1
 	if Input.is_action_pressed("move_right"):
 		player.scale.x = player.scale.y * -1
-
+	
 	if player.velocity.y >= 0:
 		finished.emit(FALLING)
 	if Input.is_action_pressed("rope"):

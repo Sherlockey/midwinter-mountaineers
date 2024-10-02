@@ -405,7 +405,6 @@ texture = ExtResource("3_3vfw0")
 hframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_iunhp")
 
@@ -468,6 +467,9 @@ position = Vector2(-3, -21)
 [node name="FlareTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="HeadMarker2D" type="Marker2D" parent="."]
+position = Vector2(0, -19)
 
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]
 [connection signal="body_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_body_entered"]
