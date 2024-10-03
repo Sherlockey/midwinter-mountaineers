@@ -14,6 +14,7 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 
 func physics_update(delta: float) -> void:
+	# Handle movement
 	var input_direction_x := Input.get_axis("move_left", "move_right")
 	player.velocity.x = player.speed * input_direction_x
 	player.velocity.y += player.gravity * delta
@@ -36,12 +37,16 @@ func physics_update(delta: float) -> void:
 						block = collider
 		if block:
 			block.destroy()
+			can_destroy_block = false
+			set_deferred("can_destroy_block", true)
 	
+	# Handle sprite flipping
 	if Input.is_action_pressed("move_left"):
 		player.scale.x = player.scale.y * 1
 	if Input.is_action_pressed("move_right"):
 		player.scale.x = player.scale.y * -1
 	
+	# Handle exit conditions
 	if player.velocity.y >= 0:
 		finished.emit(FALLING)
 	if Input.is_action_pressed("rope"):

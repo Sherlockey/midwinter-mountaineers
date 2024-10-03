@@ -386,48 +386,8 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 33
 script = ExtResource("1_e6efu")
-
-[node name="Rope" parent="." instance=ExtResource("3_oy4eh")]
-position = Vector2(-3, -9)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-12, -24)
-texture = ExtResource("2_qy41u")
-centered = false
-hframes = 21
-frame = 1
-
-[node name="AttackSprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, -12)
-texture = ExtResource("3_3vfw0")
-hframes = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
-shape = SubResource("CapsuleShape2D_iunhp")
-
-[node name="AttackArea" type="Area2D" parent="."]
-visible = false
-collision_layer = 2
-collision_mask = 4
-monitoring = false
-
-[node name="AttackCollisionPolygon" type="CollisionPolygon2D" parent="AttackArea"]
-position = Vector2(0, -12)
-polygon = PackedVector2Array(-25, 0, -17, 12, 0, 12, 6, -15, 0, -21, -16, -15)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_itqri")
-}
-autoplay = "idle"
-
-[node name="AttackAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_4wbar")
-}
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("4_ls4fq")
@@ -461,16 +421,63 @@ flare_vfx_scene = ExtResource("14_ohk5c")
 [node name="Latching" type="Node" parent="StateMachine"]
 script = ExtResource("13_ud1je")
 
+[node name="Rope" parent="." instance=ExtResource("3_oy4eh")]
+position = Vector2(-3, -9)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-12, -24)
+texture = ExtResource("2_qy41u")
+centered = false
+hframes = 21
+frame = 1
+
+[node name="AttackSprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -12)
+texture = ExtResource("3_3vfw0")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_iunhp")
+
+[node name="AttackArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 4
+monitoring = false
+
+[node name="AttackCollisionPolygon" type="CollisionPolygon2D" parent="AttackArea"]
+position = Vector2(0, -12)
+polygon = PackedVector2Array(-25, 0, -17, 12, 0, 12, 6, -15, 0, -21, -16, -15)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_itqri")
+}
+autoplay = "idle"
+
+[node name="AttackAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4wbar")
+}
+
 [node name="FlareSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(-3, -21)
+
+[node name="HeadMarker2D" type="Marker2D" parent="."]
+position = Vector2(0, -19)
 
 [node name="FlareTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
-[node name="HeadMarker2D" type="Marker2D" parent="."]
-position = Vector2(0, -19)
+[node name="DropThroughTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]
 [connection signal="body_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_body_entered"]
 [connection signal="timeout" from="FlareTimer" to="StateMachine/Flaring" method="_on_flare_timer_timeout"]
+[connection signal="timeout" from="DropThroughTimer" to="." method="_on_drop_through_timer_timeout"]

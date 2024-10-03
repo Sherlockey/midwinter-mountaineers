@@ -2,10 +2,9 @@ class_name Flare
 extends Area2D
 
 @export var speed : float = 300.0
-@export var max_range : float = 1500.0
+@export var max_range : float = 100.0
 
 var travelled_distance : float = 0.0
-var can_destroy_block : bool = true
 
 
 func _physics_process(delta: float) -> void:
@@ -19,7 +18,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	print("flare hit " + str(body))
-	if body.has_method("destroy") and can_destroy_block:
+	if body.has_method("destroy"):
 		body.destroy()
-		can_destroy_block = false
-	queue_free()
+	else:
+		queue_free()
