@@ -7,7 +7,6 @@ extends CharacterBody2D
 
 var can_latch : bool = true
 var can_flare : bool = true
-var does_drop_through : bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_animation_player: AnimationPlayer = $AttackAnimationPlayer
@@ -18,4 +17,9 @@ var does_drop_through : bool = false
 
 
 func _on_drop_through_timer_timeout() -> void:
-	does_drop_through = false
+	print("hi")
+	if not Input.is_action_pressed("move_down"):
+		print("made it")
+		set_collision_mask_value(6, true)
+	else:
+		drop_through_timer.start()

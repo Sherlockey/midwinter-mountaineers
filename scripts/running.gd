@@ -30,3 +30,11 @@ func physics_update(delta: float) -> void:
 		finished.emit(FLARING)
 	elif is_equal_approx(input_direction_x, 0.0):
 		finished.emit(IDLE)
+
+
+func handle_input(_event: InputEvent) -> void:
+	if _event.is_action_pressed("move_down"):
+		player.set_collision_mask_value(6, false) # Disable cloud mask
+		if not player.drop_through_timer.is_stopped():
+			player.drop_through_timer.stop()
+		player.drop_through_timer.start()
