@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://6cjy5ij7prsr"]
+
+[ext_resource type="Texture2D" uid="uid://beerjnmji7180" path="res://assets/sprites/durian.png" id="1_btp6c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmsrm"]
+radius = 6.08276
+
+[node name="Durian" type="StaticBody2D"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_btp6c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_vmsrm")

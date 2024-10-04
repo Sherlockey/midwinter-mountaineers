@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpk6dmcy1lryx"]
+
+[ext_resource type="Texture2D" uid="uid://fwxkcsidh7gg" path="res://assets/sprites/icicle.png" id="1_0l0d6"]
+
+[node name="Icicle" type="StaticBody2D"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0l0d6")
+hframes = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-5, -6, 0, 6, 5, -6)

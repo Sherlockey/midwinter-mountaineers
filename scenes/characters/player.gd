@@ -17,9 +17,7 @@ var can_flare : bool = true
 
 
 func _on_drop_through_timer_timeout() -> void:
-	print("hi")
 	if not Input.is_action_pressed("move_down"):
-		print("made it")
-		set_collision_mask_value(6, true)
+		set_collision_mask_value(6, true) # Enable cloud mask
 	else:
 		drop_through_timer.start()

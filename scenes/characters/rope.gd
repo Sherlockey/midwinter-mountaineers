@@ -11,7 +11,7 @@ var is_colliding : bool = false
 @onready var shape_cast_2d: ShapeCast2D = $ShapeCast2D
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if shape_cast_2d.is_colliding():
 		# might not need this if check
 		if animation_player.is_playing():

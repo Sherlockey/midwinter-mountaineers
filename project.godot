@@ -109,6 +109,7 @@ menu={
 2d_physics/layer_4="pickup"
 2d_physics/layer_5="flare"
 2d_physics/layer_6="cloud"
+2d_physics/layer_7="pillar"
 
 [rendering]
 

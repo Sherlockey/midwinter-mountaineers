@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgdyprhadx57k"]
+[gd_scene load_steps=9 format=3 uid="uid://bmtsi6bt6xph0"]
 
-[ext_resource type="Script" path="res://scenes/characters/hare.gd" id="1_y6dhx"]
-[ext_resource type="Texture2D" uid="uid://c3y6bdfj1xnhj" path="res://assets/sprites/hare.png" id="2_q10yj"]
+[ext_resource type="Script" path="res://scenes/characters/hare.gd" id="1_bov5a"]
+[ext_resource type="Texture2D" uid="uid://d4hjjykwqqp5m" path="res://assets/sprites/eagle.png" id="2_gbr5a"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
-radius = 6.0
-height = 14.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8yjgr"]
+size = Vector2(24, 24)
 
 [sub_resource type="Animation" id="Animation_yijdw"]
 length = 0.001
@@ -37,7 +36,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [3]
 }
 
 [sub_resource type="Animation" id="Animation_ho6i4"]
@@ -59,7 +58,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_cy7qk"]
 resource_name = "run"
-length = 0.45
+length = 0.4
 loop_mode = 1
 step = 0.15
 tracks/0/type = "value"
@@ -69,10 +68,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [1, 2, 3]
+"values": [1, 2]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k2v2e"]
@@ -83,19 +82,19 @@ _data = {
 "run": SubResource("Animation_cy7qk")
 }
 
-[node name="Hare" type="CharacterBody2D"]
+[node name="Eagle" type="CharacterBody2D"]
 collision_layer = 4
-script = ExtResource("1_y6dhx")
+script = ExtResource("1_bov5a")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
-texture = ExtResource("2_q10yj")
-hframes = 5
+texture = ExtResource("2_gbr5a")
+hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, -7)
-shape = SubResource("CapsuleShape2D_iunhp")
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_8yjgr")
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 visible = false
@@ -122,7 +121,8 @@ autoplay = "idle"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false
-position = Vector2(3, -4)
+position = Vector2(4, -6.85714)
+scale = Vector2(1.6, 1.71429)
 rect = Rect2(-10, -10, 15, 14)
 
 [connection signal="timeout" from="HurtFlipTimer" to="." method="_on_hurt_flip_timer_timeout"]
