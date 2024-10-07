@@ -1,15 +1,143 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpk6dmcy1lryx"]
+[gd_scene load_steps=10 format=3 uid="uid://dpk6dmcy1lryx"]
 
 [ext_resource type="Texture2D" uid="uid://fwxkcsidh7gg" path="res://assets/sprites/icicle.png" id="1_0l0d6"]
+[ext_resource type="Script" path="res://scenes/environment/icicle.gd" id="1_d7f2k"]
+
+[sub_resource type="Animation" id="Animation_ftnyn"]
+resource_name = "forming"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_f6u44"]
+resource_name = "formed"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_bx6xe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rdj53"]
+_data = {
+"RESET": SubResource("Animation_bx6xe"),
+"formed": SubResource("Animation_f6u44"),
+"forming": SubResource("Animation_ftnyn")
+}
+
+[sub_resource type="Animation" id="Animation_dvixm"]
+resource_name = "shake"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6ub33"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nx2dk"]
+_data = {
+"RESET": SubResource("Animation_6ub33"),
+"shake": SubResource("Animation_dvixm")
+}
 
 [node name="Icicle" type="StaticBody2D"]
 collision_layer = 64
 collision_mask = 0
+script = ExtResource("1_d7f2k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_0l0d6")
-hframes = 2
+offset = Vector2(1, 0)
+hframes = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false
 polygon = PackedVector2Array(-5, -6, 0, 6, 5, -6)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rdj53")
+}
+
+[node name="ShakeAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nx2dk")
+}
+
+[node name="GrowTimer" type="Timer" parent="."]
+wait_time = 1.8
+one_shot = true
+
+[node name="FormedTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
+[node name="ShakeTimer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="FallTimer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="timeout" from="GrowTimer" to="." method="_on_grow_timer_timeout"]
+[connection signal="timeout" from="FormedTimer" to="." method="_on_formed_timer_timeout"]
+[connection signal="timeout" from="ShakeTimer" to="." method="_on_shake_timer_timeout"]
+[connection signal="timeout" from="FallTimer" to="." method="_on_fall_timer_timeout"]

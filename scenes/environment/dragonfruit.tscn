@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://drfoxme1oyymp"]
+[gd_scene load_steps=4 format=3 uid="uid://drfoxme1oyymp"]
 
+[ext_resource type="Script" path="res://scenes/environment/fruit.gd" id="1_cidj7"]
 [ext_resource type="Texture2D" uid="uid://dsa2bivh4dhid" path="res://assets/sprites/dragonfruit.png" id="1_lrm5b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vmsrm"]
 radius = 6.08276
 
-[node name="Dragonfruit" type="StaticBody2D"]
-collision_layer = 64
-collision_mask = 0
+[node name="Dragonfruit" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_cidj7")
+point_value = 300.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_lrm5b")

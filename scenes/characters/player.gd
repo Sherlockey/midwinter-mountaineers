@@ -21,3 +21,8 @@ func _on_drop_through_timer_timeout() -> void:
 		set_collision_mask_value(6, true) # Enable cloud mask
 	else:
 		drop_through_timer.start()
+
+
+func damaged() -> void:
+	pass
+	#sprite_2d.modulate
