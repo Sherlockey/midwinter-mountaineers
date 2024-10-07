@@ -16,6 +16,10 @@ var can_flare : bool = true
 @onready var drop_through_timer: Timer = $DropThroughTimer
 
 
+func _ready() -> void:
+	damaged()
+
+
 func _on_drop_through_timer_timeout() -> void:
 	if not Input.is_action_pressed("move_down"):
 		set_collision_mask_value(6, true) # Enable cloud mask
@@ -24,5 +28,6 @@ func _on_drop_through_timer_timeout() -> void:
 
 
 func damaged() -> void:
-	pass
-	#sprite_2d.modulate
+	#TODO make a tween animation here?
+	return
+	modulate.a =  0.25

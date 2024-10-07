@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct5p1f68y1meq"]
+
+[ext_resource type="Texture2D" uid="uid://w0uwhp8ysel2" path="res://assets/sprites/snow.png" id="1_b43nw"]
+
+[sub_resource type="Animation" id="Animation_2v8sx"]
+resource_name = "snowfall"
+length = 1.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Rect2(0, 0, 512, 512), Rect2(32, 0, 512, 512), Rect2(64, 0, 512, 512), Rect2(96, 0, 512, 512), Rect2(128, 0, 512, 512), Rect2(160, 0, 512, 512), Rect2(192, 0, 512, 512), Rect2(224, 0, 512, 512), Rect2(256, 0, 512, 512), Rect2(288, 0, 512, 512), Rect2(320, 0, 512, 512), Rect2(352, 0, 512, 512), Rect2(384, 0, 512, 512), Rect2(416, 0, 512, 512), Rect2(448, 0, 512, 512), Rect2(480, 0, 512, 512)]
+}
+
+[sub_resource type="Animation" id="Animation_2kju1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 512, 512)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qv2bu"]
+_data = {
+"RESET": SubResource("Animation_2kju1"),
+"snowfall": SubResource("Animation_2v8sx")
+}
+
+[node name="Snow" type="Sprite2D"]
+texture_repeat = 2
+texture = ExtResource("1_b43nw")
+region_enabled = true
+region_rect = Rect2(0, 0, 512, 512)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qv2bu")
+}
+autoplay = "snowfall"
