@@ -24,8 +24,8 @@ func physics_update(delta: float) -> void:
 	player.move_and_slide()
 
 
-func handle_input(_event: InputEvent) -> void:
-	if _event.is_action_pressed("move_down"):
+func handle_input(event: InputEvent) -> void:
+	if event.is_action_pressed("move_down"):
 		player.set_collision_mask_value(6, false) # Disable cloud mask
 		if not player.drop_through_timer.is_stopped():
 			player.drop_through_timer.stop()

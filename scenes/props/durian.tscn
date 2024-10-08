@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://6cjy5ij7prsr"]
 
 [ext_resource type="Texture2D" uid="uid://beerjnmji7180" path="res://assets/sprites/durian.png" id="1_btp6c"]
-[ext_resource type="Script" path="res://scenes/environment/fruit.gd" id="1_uacw5"]
+[ext_resource type="Script" path="res://scenes/props/fruit.gd" id="1_uacw5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vmsrm"]
 radius = 6.08276

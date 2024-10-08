@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bw6munnohqqm1"]
 
-[ext_resource type="Script" path="res://scenes/environment/flag.gd" id="1_4787g"]
+[ext_resource type="Script" path="res://scenes/props/flag.gd" id="1_4787g"]
 [ext_resource type="Texture2D" uid="uid://7jbrpooqwek" path="res://assets/sprites/flag.png" id="1_p2sa8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10srj"]

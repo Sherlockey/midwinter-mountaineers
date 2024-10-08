@@ -1,23 +1,25 @@
-[gd_scene load_steps=23 format=4 uid="uid://41eh61hv8nhi"]
+[gd_scene load_steps=28 format=4 uid="uid://41eh61hv8nhi"]
 
-[ext_resource type="PackedScene" uid="uid://d1xlh24l0q4fj" path="res://scenes/environment/brick.tscn" id="1_803di"]
+[ext_resource type="PackedScene" uid="uid://d1xlh24l0q4fj" path="res://scenes/props/brick.tscn" id="1_803di"]
 [ext_resource type="PackedScene" uid="uid://b3earbls446la" path="res://scenes/characters/player.tscn" id="1_iy506"]
 [ext_resource type="PackedScene" uid="uid://ct5p1f68y1meq" path="res://scenes/vfx/snow.tscn" id="1_sst6l"]
-[ext_resource type="PackedScene" uid="uid://c6j5244p40wx1" path="res://scenes/environment/ice_block.tscn" id="1_xpbnq"]
+[ext_resource type="PackedScene" uid="uid://c6j5244p40wx1" path="res://scenes/props/ice_block.tscn" id="1_xpbnq"]
 [ext_resource type="PackedScene" uid="uid://dgdyprhadx57k" path="res://scenes/characters/hare.tscn" id="2_jmrac"]
-[ext_resource type="PackedScene" uid="uid://bo1qtvc5jcepe" path="res://scenes/environment/small_cloud.tscn" id="3_u2r34"]
-[ext_resource type="PackedScene" uid="uid://k2shspd7jewd" path="res://scenes/environment/large_cloud.tscn" id="4_87pt8"]
+[ext_resource type="PackedScene" uid="uid://bo1qtvc5jcepe" path="res://scenes/props/small_cloud.tscn" id="3_u2r34"]
+[ext_resource type="PackedScene" uid="uid://k2shspd7jewd" path="res://scenes/props/large_cloud.tscn" id="4_87pt8"]
 [ext_resource type="PackedScene" uid="uid://bmtsi6bt6xph0" path="res://scenes/characters/eagle.tscn" id="8_437vq"]
-[ext_resource type="PackedScene" uid="uid://bufdqprg1kf3d" path="res://scenes/environment/pillar_white.tscn" id="8_dd13w"]
-[ext_resource type="PackedScene" uid="uid://birsn535vbuma" path="res://scenes/environment/pillar.tscn" id="8_q6w6f"]
-[ext_resource type="PackedScene" uid="uid://dpk6dmcy1lryx" path="res://scenes/environment/icicle.tscn" id="10_5ouc2"]
-[ext_resource type="PackedScene" uid="uid://dxenstf83fe" path="res://scenes/environment/spike.tscn" id="11_0igka"]
-[ext_resource type="PackedScene" uid="uid://cdo484gdqnq70" path="res://scenes/environment/banana.tscn" id="12_qbvrw"]
-[ext_resource type="PackedScene" uid="uid://drfoxme1oyymp" path="res://scenes/environment/dragonfruit.tscn" id="13_aekly"]
-[ext_resource type="PackedScene" uid="uid://bte6xlfjiu1ql" path="res://scenes/environment/grape.tscn" id="13_i3wcj"]
-[ext_resource type="PackedScene" uid="uid://6cjy5ij7prsr" path="res://scenes/environment/durian.tscn" id="14_skpc3"]
-[ext_resource type="PackedScene" uid="uid://b0i54dp6nc27y" path="res://scenes/environment/lychee.tscn" id="15_8gi81"]
-[ext_resource type="PackedScene" uid="uid://bw6munnohqqm1" path="res://scenes/environment/flag.tscn" id="16_4n0ci"]
+[ext_resource type="PackedScene" uid="uid://bufdqprg1kf3d" path="res://scenes/props/pillar_white.tscn" id="8_dd13w"]
+[ext_resource type="PackedScene" uid="uid://birsn535vbuma" path="res://scenes/props/pillar.tscn" id="8_q6w6f"]
+[ext_resource type="PackedScene" uid="uid://dpk6dmcy1lryx" path="res://scenes/props/icicle.tscn" id="10_5ouc2"]
+[ext_resource type="PackedScene" uid="uid://dxenstf83fe" path="res://scenes/props/spike.tscn" id="11_0igka"]
+[ext_resource type="PackedScene" uid="uid://cdo484gdqnq70" path="res://scenes/props/banana.tscn" id="12_qbvrw"]
+[ext_resource type="PackedScene" uid="uid://drfoxme1oyymp" path="res://scenes/props/dragonfruit.tscn" id="13_aekly"]
+[ext_resource type="PackedScene" uid="uid://bte6xlfjiu1ql" path="res://scenes/props/grape.tscn" id="13_i3wcj"]
+[ext_resource type="PackedScene" uid="uid://6cjy5ij7prsr" path="res://scenes/props/durian.tscn" id="14_skpc3"]
+[ext_resource type="PackedScene" uid="uid://b0i54dp6nc27y" path="res://scenes/props/lychee.tscn" id="15_8gi81"]
+[ext_resource type="PackedScene" uid="uid://bw6munnohqqm1" path="res://scenes/props/flag.tscn" id="16_4n0ci"]
+[ext_resource type="PackedScene" uid="uid://bpii7n1rvaf5p" path="res://scenes/props/ice_block_slippery.tscn" id="17_mdp42"]
+[ext_resource type="PackedScene" uid="uid://c7mhmiqnm8q3g" path="res://scenes/props/cloud_platform.tscn" id="19_frwfy"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_yj2l7"]
 resource_name = "bricks"
@@ -26,6 +28,7 @@ scenes/1/scene = ExtResource("1_803di")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_c48vu"]
 resource_name = "ice_blocks"
 scenes/1/scene = ExtResource("1_xpbnq")
+scenes/2/scene = ExtResource("17_mdp42")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_7dx7p"]
 resource_name = "clouds"
@@ -40,6 +43,44 @@ sources/1 = SubResource("TileSetScenesCollectionSource_c48vu")
 sources/0 = SubResource("TileSetScenesCollectionSource_yj2l7")
 sources/2 = SubResource("TileSetScenesCollectionSource_7dx7p")
 
+[sub_resource type="Animation" id="Animation_dtypl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(168, 42)]
+}
+
+[sub_resource type="Animation" id="Animation_pcwd4"]
+resource_name = "move"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(168, 42), Vector2(216, 42)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_65k55"]
+_data = {
+"RESET": SubResource("Animation_dtypl"),
+"move": SubResource("Animation_pcwd4")
+}
+
 [node name="LevelOne" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -52,43 +93,54 @@ color = Color(0, 0, 0, 1)
 position = Vector2(214, 130)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAA0AAAAAAAAAAQABAA0AAAAAAAAAAQACAA0AAAAAAAAAAQADAA0AAAAAAAAAAQAEAA0AAAAAAAAAAQAFAA0AAAAAAAAAAQAGAA0AAAAAAAAAAQAHAA0AAAAAAAAAAQAIAA0AAAAAAAAAAQAJAA0AAAAAAAAAAQAKAA0AAAAAAAAAAQALAA0AAAAAAAAAAQAMAA0AAAAAAAAAAQANAA0AAAAAAAAAAQAOAA0AAAAAAAAAAQAPAA0AAAAAAAAAAQAQAA0AAAAAAAAAAQARAA0AAAAAAAAAAQASAA0AAAAAAAAAAQATAA0AAAAAAAAAAQAUAA0AAAAAAAAAAQAVAA0AAAAAAAAAAQAWAA0AAAAAAAAAAQAXAA0AAAAAAAAAAQAYAA0AAAAAAAAAAQAZAA0AAAAAAAAAAQAaAA0AAAAAAAAAAQAbAA0AAAAAAAAAAQAcAA0AAAAAAAAAAQAdAA0AAAAAAAAAAQAeAA0AAAAAAAAAAQAfAA0AAAAAAAAAAQAgAA0AAAAAAAAAAQAhAA0AAAAAAAAAAQAiAA0AAAAAAAAAAQAjAA0AAAAAAAAAAQAAAAgAAAAAAAAAAQABAAgAAAAAAAAAAQACAAgAAAAAAAAAAQADAAgAAQAAAAAAAQAEAAgAAQAAAAAAAQAFAAgAAQAAAAAAAQAGAAgAAQAAAAAAAQAHAAgAAQAAAAAAAQAIAAgAAQAAAAAAAQAJAAgAAQAAAAAAAQALAAMAAQAAAAAAAQAKAAMAAQAAAAAAAQAJAAMAAQAAAAAAAQAIAAMAAQAAAAAAAQAHAAMAAQAAAAAAAQAGAAMAAQAAAAAAAQAFAAMAAQAAAAAAAQAEAAMAAQAAAAAAAQADAAMAAQAAAAAAAQACAAMAAAAAAAAAAQABAAMAAAAAAAAAAQAAAAMAAAAAAAAAAQAjAAoAAAAAAAAAAQAiAAoAAAAAAAAAAQAhAAoAAAAAAAAAAQAgAAoAAQAAAAAAAQAjAAYAAAAAAAAAAQAiAAYAAAAAAAAAAQAhAAYAAAAAAAAAAQAgAAYAAQAAAAAAAQAfAAoAAQAAAAAAAQAfAAYAAQAAAAAAAQAjAAEAAAAAAAAAAQAiAAEAAAAAAAAAAQAhAAEAAAAAAAAAAQAgAAEAAQAAAAAAAQAfAAEAAQAAAAAAAQAbAAkAAQAAAAAAAQAaAAkAAQAAAAAAAQAZAAkAAQAAAAAAAQAbAAQAAQAAAAAAAQAaAAQAAQAAAAAAAQAZAAQAAQAAAAAAAQAWAAgAAgAAAAAAAQAVAAgAAgAAAAAAAgAUAAgAAgAAAAAAAgAWAAIAAQAAAAAAAQAVAAIAAQAAAAAAAQAUAAIAAQAAAAAAAQAMAAMAAgAAAAAAAQANAAMAAgAAAAAAAgAOAAMAAgAAAAAAAgAPAAMAAgAAAAAAAQAAAAwAAAAAAAAAAQAAAAsAAAAAAAAAAQAAAAoAAAAAAAAAAQAAAAkAAAAAAAAAAQAAAAIAAAAAAAAAAQAAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAQAjAAAAAAAAAAAAAQAeAAYAAQAAAAAAAQAeAAEAAQAAAAAAAQAeAAoAAQAAAAAAAQATAAgAAgAAAAAAAQASAAgAAQAAAAAAAQARAAgAAQAAAAAAAQAQAAgAAQAAAAAAAQAPAAgAAQAAAAAAAQA=")
+tile_map_data = PackedByteArray("AAAAAA0AAAAAAAAAAQABAA0AAAAAAAAAAQACAA0AAAAAAAAAAQADAA0AAAAAAAAAAQAEAA0AAAAAAAAAAQAFAA0AAAAAAAAAAQAGAA0AAAAAAAAAAQAHAA0AAAAAAAAAAQAIAA0AAAAAAAAAAQAJAA0AAAAAAAAAAQAKAA0AAAAAAAAAAQALAA0AAAAAAAAAAQAMAA0AAAAAAAAAAQANAA0AAAAAAAAAAQAOAA0AAAAAAAAAAQAPAA0AAAAAAAAAAQAQAA0AAAAAAAAAAQARAA0AAAAAAAAAAQASAA0AAAAAAAAAAQATAA0AAAAAAAAAAQAUAA0AAAAAAAAAAQAVAA0AAAAAAAAAAQAWAA0AAAAAAAAAAQAXAA0AAAAAAAAAAQAYAA0AAAAAAAAAAQAZAA0AAAAAAAAAAQAaAA0AAAAAAAAAAQAbAA0AAAAAAAAAAQAcAA0AAAAAAAAAAQAdAA0AAAAAAAAAAQAeAA0AAAAAAAAAAQAfAA0AAAAAAAAAAQAgAA0AAAAAAAAAAQAhAA0AAAAAAAAAAQAiAA0AAAAAAAAAAQAjAA0AAAAAAAAAAQAAAAgAAAAAAAAAAQABAAgAAAAAAAAAAQACAAgAAAAAAAAAAQADAAgAAQAAAAAAAQAEAAgAAQAAAAAAAQAFAAgAAQAAAAAAAQAGAAgAAQAAAAAAAQAHAAgAAQAAAAAAAQAIAAgAAQAAAAAAAQAJAAgAAQAAAAAAAQALAAMAAQAAAAAAAQAKAAMAAQAAAAAAAQAJAAMAAQAAAAAAAQAIAAMAAQAAAAAAAQAHAAMAAQAAAAAAAQAGAAMAAQAAAAAAAQAFAAMAAQAAAAAAAQAEAAMAAQAAAAAAAQADAAMAAQAAAAAAAQACAAMAAAAAAAAAAQABAAMAAAAAAAAAAQAAAAMAAAAAAAAAAQAbAAkAAQAAAAAAAQAaAAkAAQAAAAAAAQAZAAkAAQAAAAAAAQAbAAQAAQAAAAAAAQAaAAQAAQAAAAAAAQAZAAQAAQAAAAAAAQAWAAgAAgAAAAAAAQAVAAgAAgAAAAAAAgAUAAgAAgAAAAAAAgAWAAIAAQAAAAAAAQAVAAIAAQAAAAAAAQAUAAIAAQAAAAAAAQATAAgAAgAAAAAAAQASAAgAAQAAAAAAAQARAAgAAQAAAAAAAQAQAAgAAQAAAAAAAQAPAAgAAQAAAAAAAQD//wgAAAAAAAAAAQD+/wgAAAAAAAAAAQD9/wgAAAAAAAAAAQD8/wgAAAAAAAAAAQD//w0AAAAAAAAAAQD+/w0AAAAAAAAAAQD9/w0AAAAAAAAAAQD8/w0AAAAAAAAAAQD//wMAAAAAAAAAAQD+/wMAAAAAAAAAAQD9/wMAAAAAAAAAAQD8/wMAAAAAAAAAAQAkAA0AAAAAAAAAAQAlAA0AAAAAAAAAAQAmAA0AAAAAAAAAAQAnAA0AAAAAAAAAAQAoAA0AAAAAAAAAAQAeAAgAAQAAAAAAAgAfAAgAAQAAAAAAAgAgAAgAAQAAAAAAAgAhAAgAAQAAAAAAAgAiAAgAAQAAAAAAAgAjAAgAAQAAAAAAAgAkAAgAAAAAAAAAAQAlAAgAAAAAAAAAAQAmAAgAAAAAAAAAAQAnAAgAAAAAAAAAAQAoAAgAAAAAAAAAAQAkAAMAAAAAAAAAAQAlAAMAAAAAAAAAAQAmAAMAAAAAAAAAAQAoAAMAAAAAAAAAAQAeAAMAAQAAAAAAAQAfAAMAAQAAAAAAAQAgAAMAAQAAAAAAAQAhAAMAAQAAAAAAAQAiAAMAAQAAAAAAAQAjAAMAAQAAAAAAAQAoAAwAAAAAAAAAAQAoAAsAAAAAAAAAAQAoAAoAAAAAAAAAAQAoAAkAAAAAAAAAAQD8/wwAAAAAAAAAAQD8/wsAAAAAAAAAAQD8/woAAAAAAAAAAQD8/wkAAAAAAAAAAQD8/wcAAAAAAAAAAQD8/wYAAAAAAAAAAQD8/wUAAAAAAAAAAQD8/wQAAAAAAAAAAQD8/wIAAAAAAAAAAQD8/wEAAAAAAAAAAQD8/wAAAAAAAAAAAQAoAAcAAAAAAAAAAQAoAAYAAAAAAAAAAQAoAAUAAAAAAAAAAQAoAAQAAAAAAAAAAQAoAAAAAAAAAAAAAQAoAAEAAAAAAAAAAQAoAAIAAAAAAAAAAQAnAAMAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_nb3ee")
 
-[node name="Pillar" parent="." instance=ExtResource("8_q6w6f")]
+[node name="Props" type="Node" parent="."]
+
+[node name="CloudPlatform" parent="Props" instance=ExtResource("19_frwfy")]
+position = Vector2(168, 42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Props/CloudPlatform"]
+libraries = {
+"": SubResource("AnimationLibrary_65k55")
+}
+autoplay = "move"
+
+[node name="Pillar" parent="Props" instance=ExtResource("8_q6w6f")]
 position = Vector2(186, 96)
 
-[node name="Pillar2" parent="." instance=ExtResource("8_dd13w")]
+[node name="Pillar2" parent="Props" instance=ExtResource("8_dd13w")]
 position = Vector2(114, 96)
 
-[node name="Icicle" parent="." instance=ExtResource("10_5ouc2")]
+[node name="Icicle" parent="Props" instance=ExtResource("10_5ouc2")]
 position = Vector2(186, 114)
 
-[node name="Spike" parent="." instance=ExtResource("11_0igka")]
+[node name="Spike" parent="Props" instance=ExtResource("11_0igka")]
 position = Vector2(126, 150)
 
-[node name="Spike2" parent="." instance=ExtResource("11_0igka")]
+[node name="Spike2" parent="Props" instance=ExtResource("11_0igka")]
 position = Vector2(138, 150)
 
-[node name="Spike3" parent="." instance=ExtResource("11_0igka")]
+[node name="Spike3" parent="Props" instance=ExtResource("11_0igka")]
 position = Vector2(150, 150)
 
-[node name="Banana" parent="." instance=ExtResource("12_qbvrw")]
+[node name="Banana" parent="Props" instance=ExtResource("12_qbvrw")]
 position = Vector2(137, 30)
 
-[node name="Dragonfruit" parent="." instance=ExtResource("13_aekly")]
+[node name="Dragonfruit" parent="Props" instance=ExtResource("13_aekly")]
 position = Vector2(114, 30)
 
-[node name="Durian" parent="." instance=ExtResource("14_skpc3")]
+[node name="Durian" parent="Props" instance=ExtResource("14_skpc3")]
 position = Vector2(89, 30)
 
-[node name="Lychee" parent="." instance=ExtResource("15_8gi81")]
+[node name="Lychee" parent="Props" instance=ExtResource("15_8gi81")]
 position = Vector2(102, 30)
 
-[node name="Grape" parent="." instance=ExtResource("13_i3wcj")]
+[node name="Grape" parent="Props" instance=ExtResource("13_i3wcj")]
 position = Vector2(126, 30)
 
-[node name="Flag" parent="." instance=ExtResource("16_4n0ci")]
+[node name="Flag" parent="Props" instance=ExtResource("16_4n0ci")]
 position = Vector2(324, 30)
 
 [node name="Hare" parent="." instance=ExtResource("2_jmrac")]

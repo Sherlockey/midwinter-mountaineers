@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdo484gdqnq70"]
 
-[ext_resource type="Script" path="res://scenes/environment/fruit.gd" id="1_2ccxk"]
+[ext_resource type="Script" path="res://scenes/props/fruit.gd" id="1_2ccxk"]
 [ext_resource type="Texture2D" uid="uid://vln45kljci6p" path="res://assets/sprites/banana.png" id="1_5km6f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vmsrm"]
