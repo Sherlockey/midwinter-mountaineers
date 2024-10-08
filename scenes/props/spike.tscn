@@ -3,8 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ylmk6esy786r" path="res://assets/sprites/spike.png" id="1_socji"]
 
 [node name="Spike" type="StaticBody2D"]
-collision_layer = 64
-collision_mask = 0
+collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_socji")

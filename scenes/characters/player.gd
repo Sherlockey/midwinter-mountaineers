@@ -17,12 +17,14 @@ var can_flare : bool = true
 @onready var state_machine: StateMachine = $StateMachine
 @onready var drop_through_timer: Timer = $DropThroughTimer
 @onready var screen_size : Vector2 = get_viewport_rect().size
-@onready var floor_shape_cast_2d: ShapeCast2D = $FloorShapeCast2D
+@onready var ice_floor_shape_cast_2d: ShapeCast2D = $IceFloorShapeCast2D
+@onready var snow_floor_shape_cast_2d: ShapeCast2D = $SnowFloorShapeCast2D
 
 
 func _physics_process(delta: float) -> void:
 	handle_screen_wrap()
 	check_floor_for_ice()
+	check_floor_for_snow()
 
 
 func _on_drop_through_timer_timeout() -> void:
@@ -37,10 +39,20 @@ func handle_screen_wrap() -> void:
 
 
 func check_floor_for_ice() -> void:
-	if floor_shape_cast_2d.is_colliding():
+	if ice_floor_shape_cast_2d.is_colliding():
 		acceleration = 100.0
 	else:
 		acceleration = 1000.0
+
+
+func check_floor_for_snow() -> void:
+	if snow_floor_shape_cast_2d.is_colliding():
+		print("snow")
+		speed = 50.0
+		jump_impulse = 325.0/1.75
+	else:
+		speed = 100.0
+		jump_impulse = 325.0
 
 
 func take_damage() -> void:

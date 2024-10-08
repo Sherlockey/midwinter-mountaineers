@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b3earbls446la"]
+[gd_scene load_steps=39 format=3 uid="uid://b3earbls446la"]
 
 [ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
 [ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
@@ -421,8 +421,11 @@ _data = {
 "damaged": SubResource("Animation_i1lnm")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_it88a"]
-size = Vector2(2, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vdasc"]
+size = Vector2(6, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjdar"]
+size = Vector2(2, 4)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -478,6 +481,7 @@ texture = ExtResource("3_3vfw0")
 hframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_iunhp")
 
@@ -521,10 +525,21 @@ one_shot = true
 wait_time = 0.05
 one_shot = true
 
-[node name="FloorShapeCast2D" type="ShapeCast2D" parent="."]
-shape = SubResource("RectangleShape2D_it88a")
+[node name="IceFloorShapeCast2D" type="ShapeCast2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_vdasc")
 target_position = Vector2(0, 0)
 collision_mask = 128
+
+[node name="SnowFloorShapeCast2D" type="ShapeCast2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_fjdar")
+target_position = Vector2(0, 0)
+collision_mask = 256
+collide_with_areas = true
+collide_with_bodies = false
 
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]
 [connection signal="body_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_body_entered"]
