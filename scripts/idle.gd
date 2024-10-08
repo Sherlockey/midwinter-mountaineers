@@ -2,12 +2,12 @@ extends PlayerState
 
 
 func enter(previous_state_path: String, data := {}) -> void:
-	player.velocity.x = 0.0
 	player.animation_player.play("idle")
 
-func physics_update(_delta: float) -> void:
+func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
-	player.velocity.y += player.gravity * _delta
+	player.velocity.x = move_toward(player.velocity.x, 0.0, player.acceleration * delta)
+	player.velocity.y += player.gravity * delta
 	player.move_and_slide()
 
 	if not is_equal_approx(input_direction_x, 0.0):

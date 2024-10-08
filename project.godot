@@ -110,9 +110,11 @@ menu={
 2d_physics/layer_5="flare"
 2d_physics/layer_6="cloud"
 2d_physics/layer_7="pillar"
+2d_physics/layer_8="ice_block_slippery"
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true
+2d/layer_8="ice"
