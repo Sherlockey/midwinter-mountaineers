@@ -17,6 +17,10 @@ func _on_body_entered(body: Node2D) -> void:
 		target_player = body
 
 
+func take_damage() -> void:
+	queue_free()
+
+
 func deal_damage(body: PhysicsBody2D) -> void:
 	body.take_damage()
 

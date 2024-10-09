@@ -513,8 +513,8 @@ shape = SubResource("CapsuleShape2D_iunhp")
 
 [node name="AttackArea" type="Area2D" parent="."]
 visible = false
-collision_layer = 2
-collision_mask = 4
+collision_layer = 0
+collision_mask = 516
 monitoring = false
 
 [node name="AttackCollisionPolygon" type="CollisionPolygon2D" parent="AttackArea"]
@@ -567,7 +567,14 @@ collision_mask = 256
 collide_with_areas = true
 collide_with_bodies = false
 
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_right = 432
+position_smoothing_enabled = true
+editor_draw_limits = true
+
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]
+[connection signal="area_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_area_entered"]
 [connection signal="body_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_body_entered"]
 [connection signal="timeout" from="FlareTimer" to="StateMachine/Flaring" method="_on_flare_timer_timeout"]
 [connection signal="timeout" from="DropThroughTimer" to="." method="_on_drop_through_timer_timeout"]

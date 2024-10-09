@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ylmk6esy786r" path="res://assets/sprites/spike.png" id="1_socji"]
 
 [node name="Spike" type="Area2D"]
-collision_layer = 0
+collision_layer = 512
 collision_mask = 2
 script = ExtResource("1_kotr4")
 
