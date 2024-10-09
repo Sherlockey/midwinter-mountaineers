@@ -16,29 +16,11 @@ func enter(previous_state_path: String, data := {}) -> void:
 func physics_update(delta: float) -> void:
 	# Handle movement
 	var input_direction_x := Input.get_axis("move_left", "move_right")
-	player.velocity.x = player.speed * input_direction_x
+	player.velocity.x = move_toward(player.velocity.x, player.speed * input_direction_x, player.acceleration * delta)
 	player.velocity.y += player.gravity * delta
 	player.move_and_slide()
 	
-	# Handle ice_block collisions
-	if can_destroy_block:
-		var block : IceBlock = null
-		var distance : float = INF
-		for i in player.get_slide_collision_count():
-			var collider := player.get_slide_collision(i).get_collider()
-			# TODO figure out why is_in_group() isnt working here
-			# maybe because collider is an object and not a node?
-			if collider.has_method("destroy"):
-				var pos := player.get_slide_collision(i).get_position()
-				if pos.y < head_marker_2d.global_position.y:
-					var dis : float = pos.distance_to(head_marker_2d.global_position)
-					if dis < distance:
-						distance = dis
-						block = collider
-		if block:
-			block.destroy()
-			can_destroy_block = false
-			set_deferred("can_destroy_block", true)
+	handle_ice_block_collisions()
 	
 	# Handle sprite flipping
 	if Input.is_action_pressed("move_left"):
@@ -63,3 +45,24 @@ func handle_input(event: InputEvent) -> void:
 		if not player.drop_through_timer.is_stopped():
 			player.drop_through_timer.stop()
 		player.drop_through_timer.start()
+
+
+func handle_ice_block_collisions() -> void:
+	if can_destroy_block:
+		var block : IceBlock = null
+		var distance : float = INF
+		for i in player.get_slide_collision_count():
+			var collider := player.get_slide_collision(i).get_collider()
+			# TODO figure out why is_in_group() isnt working here
+			# maybe because collider is an object and not a node?
+			if collider.has_method("destroy"):
+				var pos := player.get_slide_collision(i).get_position()
+				if pos.y < head_marker_2d.global_position.y:
+					var dis : float = pos.distance_to(head_marker_2d.global_position)
+					if dis < distance:
+						distance = dis
+						block = collider
+		if block:
+			block.destroy()
+			can_destroy_block = false
+			set_deferred("can_destroy_block", true)
