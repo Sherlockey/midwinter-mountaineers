@@ -98,51 +98,49 @@ position = Vector2(214, 130)
 tile_map_data = PackedByteArray("AAAAAA0AAAAAAAAAAQABAA0AAAAAAAAAAQACAA0AAAAAAAAAAQADAA0AAAAAAAAAAQAEAA0AAAAAAAAAAQAFAA0AAAAAAAAAAQAGAA0AAAAAAAAAAQAHAA0AAAAAAAAAAQAIAA0AAAAAAAAAAQAJAA0AAAAAAAAAAQAKAA0AAAAAAAAAAQALAA0AAAAAAAAAAQAMAA0AAAAAAAAAAQANAA0AAAAAAAAAAQAOAA0AAAAAAAAAAQAPAA0AAAAAAAAAAQAQAA0AAAAAAAAAAQARAA0AAAAAAAAAAQASAA0AAAAAAAAAAQATAA0AAAAAAAAAAQAUAA0AAAAAAAAAAQAVAA0AAAAAAAAAAQAWAA0AAAAAAAAAAQAXAA0AAAAAAAAAAQAYAA0AAAAAAAAAAQAZAA0AAAAAAAAAAQAaAA0AAAAAAAAAAQAbAA0AAAAAAAAAAQAcAA0AAAAAAAAAAQAdAA0AAAAAAAAAAQAeAA0AAAAAAAAAAQAfAA0AAAAAAAAAAQAgAA0AAAAAAAAAAQAhAA0AAAAAAAAAAQAiAA0AAAAAAAAAAQAjAA0AAAAAAAAAAQAAAAgAAAAAAAAAAQABAAgAAAAAAAAAAQACAAgAAAAAAAAAAQADAAgAAQAAAAAAAQAEAAgAAQAAAAAAAQAFAAgAAQAAAAAAAQAGAAgAAQAAAAAAAQAHAAgAAQAAAAAAAQAIAAgAAQAAAAAAAQAJAAgAAQAAAAAAAQALAAMAAQAAAAAAAQAKAAMAAQAAAAAAAQAJAAMAAQAAAAAAAQAIAAMAAQAAAAAAAQAHAAMAAQAAAAAAAQAGAAMAAQAAAAAAAQAFAAMAAQAAAAAAAQAEAAMAAQAAAAAAAQADAAMAAQAAAAAAAQACAAMAAAAAAAAAAQABAAMAAAAAAAAAAQAAAAMAAAAAAAAAAQAbAAkAAQAAAAAAAQAaAAkAAQAAAAAAAQAZAAkAAQAAAAAAAQAbAAQAAQAAAAAAAQAaAAQAAQAAAAAAAQAZAAQAAQAAAAAAAQAWAAgAAgAAAAAAAQAVAAgAAgAAAAAAAgAUAAgAAgAAAAAAAgAWAAIAAQAAAAAAAQAVAAIAAQAAAAAAAQAUAAIAAQAAAAAAAQATAAgAAgAAAAAAAQASAAgAAQAAAAAAAQARAAgAAQAAAAAAAQAQAAgAAQAAAAAAAQAPAAgAAQAAAAAAAQD//wgAAAAAAAAAAQD+/wgAAAAAAAAAAQD9/wgAAAAAAAAAAQD8/wgAAAAAAAAAAQD//w0AAAAAAAAAAQD+/w0AAAAAAAAAAQD9/w0AAAAAAAAAAQD8/w0AAAAAAAAAAQD//wMAAAAAAAAAAQD+/wMAAAAAAAAAAQD9/wMAAAAAAAAAAQD8/wMAAAAAAAAAAQAkAA0AAAAAAAAAAQAlAA0AAAAAAAAAAQAmAA0AAAAAAAAAAQAnAA0AAAAAAAAAAQAoAA0AAAAAAAAAAQAeAAgAAQAAAAAAAgAfAAgAAQAAAAAAAgAgAAgAAQAAAAAAAgAhAAgAAQAAAAAAAgAiAAgAAQAAAAAAAgAjAAgAAQAAAAAAAgAkAAgAAAAAAAAAAQAlAAgAAAAAAAAAAQAmAAgAAAAAAAAAAQAnAAgAAAAAAAAAAQAoAAgAAAAAAAAAAQAkAAMAAAAAAAAAAQAlAAMAAAAAAAAAAQAmAAMAAAAAAAAAAQAoAAMAAAAAAAAAAQAeAAMAAQAAAAAAAwAfAAMAAQAAAAAAAwAgAAMAAQAAAAAAAwAhAAMAAQAAAAAAAwAiAAMAAQAAAAAAAwAjAAMAAQAAAAAAAwAoAAwAAAAAAAAAAQAoAAsAAAAAAAAAAQAoAAoAAAAAAAAAAQAoAAkAAAAAAAAAAQD8/wwAAAAAAAAAAQD8/wsAAAAAAAAAAQD8/woAAAAAAAAAAQD8/wkAAAAAAAAAAQD8/wcAAAAAAAAAAQD8/wYAAAAAAAAAAQD8/wUAAAAAAAAAAQD8/wQAAAAAAAAAAQD8/wIAAAAAAAAAAQD8/wEAAAAAAAAAAQD8/wAAAAAAAAAAAQAoAAcAAAAAAAAAAQAoAAYAAAAAAAAAAQAoAAUAAAAAAAAAAQAoAAQAAAAAAAAAAQAoAAAAAAAAAAAAAQAoAAEAAAAAAAAAAQAoAAIAAAAAAAAAAQAnAAMAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_nb3ee")
 
-[node name="Props" type="Node" parent="."]
-
-[node name="CloudPlatform" parent="Props" instance=ExtResource("19_frwfy")]
+[node name="CloudPlatform" parent="." instance=ExtResource("19_frwfy")]
 position = Vector2(168, 42)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Props/CloudPlatform"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CloudPlatform"]
 libraries = {
 "": SubResource("AnimationLibrary_65k55")
 }
 autoplay = "move"
 
-[node name="Pillar" parent="Props" instance=ExtResource("8_q6w6f")]
+[node name="Pillar" parent="." instance=ExtResource("8_q6w6f")]
 position = Vector2(186, 96)
 
-[node name="Pillar2" parent="Props" instance=ExtResource("8_dd13w")]
+[node name="Pillar2" parent="." instance=ExtResource("8_dd13w")]
 position = Vector2(114, 96)
 
-[node name="Icicle" parent="Props" instance=ExtResource("10_5ouc2")]
+[node name="Icicle" parent="." instance=ExtResource("10_5ouc2")]
 position = Vector2(186, 114)
 
-[node name="Spike" parent="Props" instance=ExtResource("11_0igka")]
+[node name="Spike" parent="." instance=ExtResource("11_0igka")]
 position = Vector2(126, 150)
 
-[node name="Spike2" parent="Props" instance=ExtResource("11_0igka")]
+[node name="Spike2" parent="." instance=ExtResource("11_0igka")]
 position = Vector2(138, 150)
 
-[node name="Spike3" parent="Props" instance=ExtResource("11_0igka")]
+[node name="Spike3" parent="." instance=ExtResource("11_0igka")]
 position = Vector2(150, 150)
 
-[node name="Banana" parent="Props" instance=ExtResource("12_qbvrw")]
+[node name="Banana" parent="." instance=ExtResource("12_qbvrw")]
 position = Vector2(137, 30)
 
-[node name="Dragonfruit" parent="Props" instance=ExtResource("13_aekly")]
+[node name="Dragonfruit" parent="." instance=ExtResource("13_aekly")]
 position = Vector2(114, 30)
 
-[node name="Durian" parent="Props" instance=ExtResource("14_skpc3")]
+[node name="Durian" parent="." instance=ExtResource("14_skpc3")]
 position = Vector2(89, 30)
 
-[node name="Lychee" parent="Props" instance=ExtResource("15_8gi81")]
+[node name="Lychee" parent="." instance=ExtResource("15_8gi81")]
 position = Vector2(102, 30)
 
-[node name="Grape" parent="Props" instance=ExtResource("13_i3wcj")]
+[node name="Grape" parent="." instance=ExtResource("13_i3wcj")]
 position = Vector2(126, 30)
 
-[node name="Flag" parent="Props" instance=ExtResource("16_4n0ci")]
+[node name="Flag" parent="." instance=ExtResource("16_4n0ci")]
 position = Vector2(324, 30)
 
 [node name="Hare" parent="." instance=ExtResource("2_jmrac")]

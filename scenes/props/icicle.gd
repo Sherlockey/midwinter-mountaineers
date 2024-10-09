@@ -47,14 +47,14 @@ func check_overlapping_bodies_for_damage() -> void:
 	var overlapping_bodies := get_overlapping_bodies()
 	for body in overlapping_bodies:
 		if body is Player:
-			try_deal_damage(body)
+			deal_damage(body)
 
 
 func _on_body_entered(body: Node2D) -> void:
-	try_deal_damage(body)
+	deal_damage(body)
 
 
-func try_deal_damage(body: PhysicsBody2D) -> void:
+func deal_damage(body: PhysicsBody2D) -> void:
 	if body is Player and can_damage:
 		can_damage = false
 		body.take_damage()

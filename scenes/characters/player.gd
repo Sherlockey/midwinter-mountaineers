@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var acceleration := 1000.00
 @export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var jump_impulse := 325.0
+@export var is_vulnerable : bool = true
 
 var can_latch : bool = true
 var can_flare : bool = true
@@ -56,4 +57,5 @@ func check_floor_for_snow() -> void:
 
 
 func take_damage() -> void:
-	damaged_animation_player.play("damaged")
+	if is_vulnerable:
+		damaged_animation_player.play("damaged")
