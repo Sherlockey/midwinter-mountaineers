@@ -153,3 +153,5 @@ position = Vector2(267, 24)
 
 [node name="Player" parent="." instance=ExtResource("1_iy506")]
 position = Vector2(221, 65)
+
+[connection signal="reached" from="Flag" to="." method="_on_flag_reached"]

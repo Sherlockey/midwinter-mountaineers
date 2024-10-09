@@ -46,6 +46,7 @@ _data = {
 }
 
 [node name="Flag" type="Area2D"]
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_4787g")
 

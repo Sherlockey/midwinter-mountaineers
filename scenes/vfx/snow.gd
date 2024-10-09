@@ -1,12 +1,27 @@
 class_name Snow
-extends Sprite2D
+extends Node2D
 
+signal wind_changed(wind_push : float)
 
 const SNOWFALL : String = "snowfall"
 const WIND_BLOWING_LEFT : String = "wind_blowing_left"
 const WIND_BLOWING_RIGHT : String = "wind_blowing_right"
 
+@export var wind_push : float = 37.5
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+
+func _ready() -> void:
+	await get_tree().create_timer(3.0).timeout
+	play_animation_at_same_time_as_current(WIND_BLOWING_LEFT)
+	wind_changed.emit(-wind_push)
+	await get_tree().create_timer(3.0).timeout
+	play_animation_at_same_time_as_current(WIND_BLOWING_RIGHT)
+	wind_changed.emit(wind_push)
+	await get_tree().create_timer(3.0).timeout
+	play_animation_at_same_time_as_current(SNOWFALL)
+	wind_changed.emit(0.0)
 
 
 func play_animation_at_same_time_as_current(animation_name : String) -> void:
