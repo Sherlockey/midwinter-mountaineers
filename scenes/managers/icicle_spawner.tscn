@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://fmrmbnj1csjs"]
+
+[ext_resource type="Script" path="res://scenes/managers/icicle_spawner.gd" id="1_5jxkf"]
+[ext_resource type="PackedScene" uid="uid://dpk6dmcy1lryx" path="res://scenes/props/icicle.tscn" id="2_t4c03"]
+
+[node name="IcicleSpawner" type="Node"]
+script = ExtResource("1_5jxkf")
+icicle_scene = ExtResource("2_t4c03")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

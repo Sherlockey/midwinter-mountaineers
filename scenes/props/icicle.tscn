@@ -98,11 +98,11 @@ _data = {
 }
 
 [node name="Icicle" type="Area2D"]
-collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_d7f2k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 0)
 texture = ExtResource("1_0l0d6")
 offset = Vector2(1, 0)
 hframes = 4

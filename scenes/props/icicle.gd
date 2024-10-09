@@ -59,3 +59,7 @@ func deal_damage(body: PhysicsBody2D) -> void:
 		can_damage = false
 		body.take_damage()
 		queue_free()
+
+
+func destroy() -> void:
+	queue_free()
