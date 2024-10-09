@@ -571,6 +571,7 @@ collide_with_bodies = false
 limit_left = 0
 limit_right = 432
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 editor_draw_limits = true
 
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]

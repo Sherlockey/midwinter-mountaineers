@@ -17,6 +17,7 @@ var acceleration_slippery : float = 100.0
 var jump_impulse_base: float = 325.0
 var jump_impulse_slowed : float = 185.714
 var damaged_impulse_modifier : float = -1.25
+var wind_push : float = 0.0
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_animation_player: AnimationPlayer = $AttackAnimationPlayer

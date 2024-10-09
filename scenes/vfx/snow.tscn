@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ct5p1f68y1meq"]
+[gd_scene load_steps=8 format=3 uid="uid://ct5p1f68y1meq"]
 
 [ext_resource type="Texture2D" uid="uid://w0uwhp8ysel2" path="res://assets/sprites/snow.png" id="1_b43nw"]
+[ext_resource type="Script" path="res://scenes/vfx/snow.gd" id="2_1n8li"]
 
 [sub_resource type="Animation" id="Animation_2kju1"]
 length = 0.001
@@ -229,6 +230,7 @@ rotation = 4.71239
 texture = ExtResource("1_b43nw")
 region_enabled = true
 region_rect = Rect2(0, 0, 512, 512)
+script = ExtResource("2_1n8li")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
