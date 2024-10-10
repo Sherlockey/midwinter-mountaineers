@@ -10,6 +10,9 @@ func enter(previous_state_path: String, data := {}) -> void:
 	if data:
 		if data.get("jump") == false:
 			return
+		if data.get("jump_impulse_scalar"):
+			player.velocity.y = -player.jump_impulse * data.get("jump_impulse_scalar")
+			return
 	player.velocity.y = -player.jump_impulse
 
 

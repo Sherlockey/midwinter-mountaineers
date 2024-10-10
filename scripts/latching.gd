@@ -1,6 +1,7 @@
 extends PlayerState
 
 var is_latched: bool = false
+var jump_impulse_scalar : float = 0.875
 
 func enter(previous_state_path: String, data := {}) -> void:
 	player.animation_player.play("latching")
@@ -17,7 +18,8 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("move_down"):
 		finished.emit(FALLING)
 	if Input.is_action_just_pressed("jump"):
-		finished.emit(JUMPING)
+		var data := { "jump_impulse_scalar" : jump_impulse_scalar}
+		finished.emit(JUMPING, data)
 
 
 func set_is_latched(value: bool) -> void:
