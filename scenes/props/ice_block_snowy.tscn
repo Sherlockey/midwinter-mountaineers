@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dnmhin4eei0rv" path="res://scenes/props/ice_block_destroyed.tscn" id="2_1x4eq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cwna3"]
-size = Vector2(12, 11)
+size = Vector2(12, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8qmh"]
 size = Vector2(12, 5)
@@ -22,7 +22,6 @@ texture = ExtResource("1_2i7ih")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_cwna3")
 
 [node name="SnowArea" type="Area2D" parent="."]

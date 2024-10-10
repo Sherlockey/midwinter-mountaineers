@@ -10,7 +10,7 @@ var has_icicle : bool = false
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 
-func destroy(new_linear_velocity_x_scalar : float) -> void:
+func destroy(new_linear_velocity_x_scalar : float = randi_range(-1, 1)) -> void:
 	is_disabled = true
 	sprite_2d.visible = false
 	collision_shape_2d.set_deferred("disabled", true)

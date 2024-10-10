@@ -17,12 +17,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print("flare hit " + str(body))
 	if body.has_method("destroy"):
 		body.destroy()
 
 
 func _on_area_entered(area: Area2D) -> void:
-	print("flare hit " + str(area))
 	if area.has_method("destroy"):
 		area.destroy()
