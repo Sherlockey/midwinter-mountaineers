@@ -7,6 +7,8 @@ var can_destroy_block : bool = true
 
 func enter(previous_state_path: String, data := {}) -> void:
 	player.animation_player.play("jump")
+	player.is_full_hop = true
+	player.full_hop_timer.start()
 	if data:
 		if data.get("jump") == false:
 			return
@@ -20,7 +22,12 @@ func physics_update(delta: float) -> void:
 	# Handle movement
 	var input_direction_x := Input.get_axis("move_left", "move_right")
 	player.velocity.x = move_toward(player.velocity.x, player.speed * input_direction_x + player.wind_push, player.acceleration * delta)
-	player.velocity.y += player.gravity * delta
+	
+	if player.is_full_hop:
+		player.velocity.y += player.gravity * delta
+	else:
+		player.velocity.y += player.gravity * delta * player.short_hop_multiplier
+	
 	player.move_and_slide()
 	
 	handle_ice_block_collisions()

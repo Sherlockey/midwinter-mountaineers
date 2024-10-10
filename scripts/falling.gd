@@ -7,7 +7,9 @@ func enter(previous_state_path: String, data := {}) -> void:
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
 	player.velocity.x = move_toward(player.velocity.x, player.speed * input_direction_x + player.wind_push, player.acceleration * delta)
-	player.velocity.y += player.gravity * delta
+	
+	player.velocity.y += player.gravity * delta * player.gravity_falling_multiplier
+	
 	player.move_and_slide()
 	
 	if Input.is_action_pressed("move_left"):

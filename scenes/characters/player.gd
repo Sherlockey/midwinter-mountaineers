@@ -4,9 +4,12 @@ extends CharacterBody2D
 @export var speed := speed_base
 @export var acceleration := acceleration_base
 @export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
+@export var gravity_falling_multiplier : float = 1.5
+@export var short_hop_multiplier : float = 3.0
 @export var jump_impulse := jump_impulse_base
 @export var is_vulnerable : bool = true
 
+var is_full_hop : bool = false
 var is_in_snow : bool = false
 var can_latch : bool = true
 var can_flare : bool = true
@@ -14,7 +17,7 @@ var speed_base : float = 100.0
 var speed_slowed : float = 50.0
 var acceleration_base : float = 1000.0
 var acceleration_slippery : float = 100.0
-var jump_impulse_base: float = 325.0
+var jump_impulse_base: float = 330.0
 var jump_impulse_slowed : float = 185.714
 var damaged_impulse_modifier : float = -1.25
 var wind_push : float = 0.0
@@ -26,6 +29,7 @@ var wind_push : float = 0.0
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var state_machine: StateMachine = $StateMachine
 @onready var drop_through_timer: Timer = $DropThroughTimer
+@onready var full_hop_timer: Timer = $FullHopTimer
 @onready var screen_size : Vector2 = get_viewport_rect().size
 @onready var ice_floor_shape_cast_2d: ShapeCast2D = $IceFloorShapeCast2D
 @onready var snow_floor_shape_cast_2d: ShapeCast2D = $SnowFloorShapeCast2D
@@ -83,3 +87,10 @@ func handle_slowed() -> void:
 	else:
 		speed = speed_base
 		jump_impulse = jump_impulse_base
+
+
+func _on_full_hop_timer_timeout() -> void:
+	if Input.is_action_pressed("jump"):
+		is_full_hop = true
+	else:
+		is_full_hop = false

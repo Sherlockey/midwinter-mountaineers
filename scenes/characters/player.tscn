@@ -551,6 +551,10 @@ one_shot = true
 wait_time = 0.05
 one_shot = true
 
+[node name="FullHopTimer" type="Timer" parent="."]
+wait_time = 0.085
+one_shot = true
+
 [node name="IceFloorShapeCast2D" type="ShapeCast2D" parent="."]
 visible = false
 position = Vector2(0, -1)
@@ -579,3 +583,4 @@ editor_draw_limits = true
 [connection signal="body_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_body_entered"]
 [connection signal="timeout" from="FlareTimer" to="StateMachine/Flaring" method="_on_flare_timer_timeout"]
 [connection signal="timeout" from="DropThroughTimer" to="." method="_on_drop_through_timer_timeout"]
+[connection signal="timeout" from="FullHopTimer" to="." method="_on_full_hop_timer_timeout"]

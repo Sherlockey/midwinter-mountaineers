@@ -16,7 +16,13 @@ func enter(previous_state_path: String, data := {}) -> void:
 func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
 	player.velocity.x = move_toward(player.velocity.x, player.speed * input_direction_x + player.wind_push, player.acceleration * delta)
-	player.velocity.y += player.gravity * delta
+	
+	if player.is_full_hop:
+		player.velocity.y += player.gravity * delta
+	else:
+		player.velocity.y += player.gravity * delta * player.short_hop_multiplier
+	
+	player.move_and_slide()
 	
 	if Input.is_action_pressed("move_left") and player.scale.y == -1:
 		player.rope.cancel_cast()
@@ -24,11 +30,11 @@ func physics_update(delta: float) -> void:
 		player.rope.cancel_cast()
 	elif Input.is_action_just_pressed("jump"):
 		player.velocity.y = -player.jump_impulse
+		player.is_full_hop = true
+		player.full_hop_timer.start()
 	elif Input.is_action_just_pressed("attack"):
 		player.rope.cancel_cast()
 		finished.emit(ATTACKING)
-	
-	player.move_and_slide()
 
 
 func _on_rope_collided(duration : float, direction_scalar : int) -> void:
