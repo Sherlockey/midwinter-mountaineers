@@ -89,6 +89,8 @@ _data = {
 script = ExtResource("1_mxlvh")
 
 [node name="IcicleSpawner" parent="." instance=ExtResource("2_qhqii")]
+min_spawn_time = 3.0
+max_spawn_time = 5.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 432.0

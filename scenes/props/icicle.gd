@@ -1,9 +1,14 @@
+class_name Icicle
 extends Area2D
+
+signal dropped()
 
 @export var speed : float = 150.0
 
 var is_falling : bool = false
-var can_damage : bool = false
+var is_formed : bool = false
+var can_deal_damage : bool = false
+var ice_block_parent : IceBlock
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var shake_animation_player: AnimationPlayer = $ShakeAnimationPlayer
@@ -26,6 +31,8 @@ func _physics_process(delta: float) -> void:
 func _on_grow_timer_timeout() -> void:
 	animation_player.play("formed")
 	formed_timer.start()
+	is_formed = true
+	can_deal_damage = true
 
 
 func _on_formed_timer_timeout() -> void:
@@ -37,10 +44,7 @@ func _on_shake_timer_timeout() -> void:
 	fall_timer.start()
 
 func _on_fall_timer_timeout() -> void:
-	shake_animation_player.play("RESET")
-	is_falling = true
-	can_damage = true
-	check_overlapping_bodies_for_damage()
+	drop()
 
 
 func check_overlapping_bodies_for_damage() -> void:
@@ -55,11 +59,30 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func deal_damage(body: PhysicsBody2D) -> void:
-	if body is Player and can_damage:
-		can_damage = false
+	if body is Player and can_deal_damage:
+		can_deal_damage = false
 		body.take_damage()
-		queue_free()
+		destroy()
 
 
 func destroy() -> void:
+	if ice_block_parent:
+		if dropped.is_connected(ice_block_parent._on_icicle_dropped):
+			dropped.disconnect(ice_block_parent._on_icicle_dropped)
 	queue_free()
+
+
+func drop_early() -> void:
+	grow_timer.stop()
+	formed_timer.stop()
+	shake_timer.stop()
+	fall_timer.stop()
+	drop()
+
+
+func drop() -> void:
+	shake_animation_player.play("RESET")
+	is_falling = true
+	can_deal_damage = true
+	check_overlapping_bodies_for_damage()
+	dropped.emit()
