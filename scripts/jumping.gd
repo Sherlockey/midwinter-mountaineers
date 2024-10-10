@@ -63,6 +63,6 @@ func handle_ice_block_collisions() -> void:
 						distance = dis
 						block = collider
 		if block:
-			block.destroy()
+			block.destroy(-player.scale.y)
 			can_destroy_block = false
 			set_deferred("can_destroy_block", true)

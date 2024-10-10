@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5eupcpk2qj0e"]
+[gd_scene load_steps=6 format=3 uid="uid://c5eupcpk2qj0e"]
 
 [ext_resource type="Texture2D" uid="uid://duo5f22iiwg6l" path="res://assets/sprites/ice_block_snowy.png" id="1_2i7ih"]
 [ext_resource type="Script" path="res://scenes/props/ice_block_snowy.gd" id="1_xcu15"]
+[ext_resource type="PackedScene" uid="uid://dnmhin4eei0rv" path="res://scenes/props/ice_block_destroyed.tscn" id="2_1x4eq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cwna3"]
 size = Vector2(12, 11)
@@ -13,6 +14,7 @@ size = Vector2(12, 5)
 top_level = true
 collision_mask = 0
 script = ExtResource("1_xcu15")
+ice_block_destroyed_scene = ExtResource("2_1x4eq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -2)

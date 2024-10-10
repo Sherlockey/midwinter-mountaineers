@@ -55,6 +55,6 @@ func spawn_icicle() -> void:
 func populate_ice_block_array() -> void:
 	for child in tile_map_layer.get_children():
 		if child is IceBlock:
-			var check_vector = Vector2i(child.global_position.x, child.global_position.y + 12)
+			var check_vector := Vector2i(child.global_position.x, child.global_position.y + 12)
 			if not tile_map_layer.get_cell_source_id(tile_map_layer.local_to_map(check_vector)) > -1:
 				ice_block_array.append(child)

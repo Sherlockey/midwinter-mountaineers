@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnmhin4eei0rv"]
+
+[ext_resource type="Texture2D" uid="uid://b8y5uk7h86wyi" path="res://assets/sprites/ice_block_destroyed.png" id="1_0ajkp"]
+[ext_resource type="Script" path="res://scenes/props/ice_block_destroyed.gd" id="1_81qng"]
+
+[node name="IceBlockDestroyed" type="RigidBody2D"]
+linear_velocity = Vector2(100, -100)
+script = ExtResource("1_81qng")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0ajkp")
+hframes = 4
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(9.53674e-08, 2.38419e-07)
+scale = Vector2(0.6, 0.6)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
