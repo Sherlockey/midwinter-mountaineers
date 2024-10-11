@@ -1,10 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhuiv3iyvlxx0"]
+[gd_scene load_steps=6 format=3 uid="uid://dhuiv3iyvlxx0"]
 
 [ext_resource type="Script" path="res://scenes/props/ice_block.gd" id="1_6ei8y"]
 [ext_resource type="Texture2D" uid="uid://bfi3gt61u4nvk" path="res://assets/sprites/ice_block.png" id="2_4ueg5"]
 [ext_resource type="PackedScene" uid="uid://btfe4d8p0n0d1" path="res://scenes/props/ice_block_slippery_destroyed.tscn" id="2_6p6eg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7cat5"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2vyw8"]
 size = Vector2(12, 12)
 
 [node name="IceBlockSlippery" type="StaticBody2D"]
@@ -21,3 +24,12 @@ frame = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_7cat5")
+
+[node name="ResidualArea" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 0
+
+[node name="ResidualCollisionShape" type="CollisionShape2D" parent="ResidualArea"]
+visible = false
+shape = SubResource("RectangleShape2D_2vyw8")
+disabled = true

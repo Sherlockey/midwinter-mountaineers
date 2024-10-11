@@ -1,11 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgdyprhadx57k"]
+[gd_scene load_steps=12 format=3 uid="uid://dgdyprhadx57k"]
 
 [ext_resource type="Script" path="res://scenes/characters/hare.gd" id="1_y6dhx"]
 [ext_resource type="Texture2D" uid="uid://c3y6bdfj1xnhj" path="res://assets/sprites/hare.png" id="2_q10yj"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
-radius = 6.0
-height = 14.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mr2np"]
+size = Vector2(6, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ail17"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24427"]
+size = Vector2(1, 1)
 
 [sub_resource type="Animation" id="Animation_yijdw"]
 length = 0.001
@@ -20,6 +25,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mffeo"]
+resource_name = "crouch"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
 }
 
 [sub_resource type="Animation" id="Animation_5ioy2"]
@@ -78,6 +100,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k2v2e"]
 _data = {
 "RESET": SubResource("Animation_yijdw"),
+"crouch": SubResource("Animation_mffeo"),
 "hurt": SubResource("Animation_5ioy2"),
 "idle": SubResource("Animation_ho6i4"),
 "run": SubResource("Animation_cy7qk")
@@ -85,33 +108,62 @@ _data = {
 
 [node name="Hare" type="CharacterBody2D"]
 collision_layer = 4
+collision_mask = 129
 script = ExtResource("1_y6dhx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
 texture = ExtResource("2_q10yj")
-hframes = 5
+hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, -7)
-shape = SubResource("CapsuleShape2D_iunhp")
+shape = SubResource("RectangleShape2D_mr2np")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="HitBoxCollisionShape" type="CollisionShape2D" parent="HitBox"]
+visible = false
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_ail17")
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 visible = false
-position = Vector2(0, -7)
-target_position = Vector2(-10, 0)
+position = Vector2(-6, -7)
+target_position = Vector2(-1, 0)
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 visible = false
-position = Vector2(0, -7)
-target_position = Vector2(10, 0)
+position = Vector2(6, -7)
+target_position = Vector2(1, 0)
+
+[node name="ShapeCastBottomLeft" type="ShapeCast2D" parent="."]
+visible = false
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_24427")
+target_position = Vector2(0, 0)
+collision_mask = 1153
+collide_with_areas = true
+
+[node name="ShapeCastBottomRight" type="ShapeCast2D" parent="."]
+visible = false
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_24427")
+target_position = Vector2(0, 0)
+collision_mask = 1153
+collide_with_areas = true
 
 [node name="HurtFlipTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
 [node name="WaitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CrouchTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -121,9 +173,10 @@ libraries = {
 autoplay = "idle"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
-position = Vector2(3, -4)
-rect = Rect2(-10, -10, 15, 14)
+position = Vector2(-3, -5.33333)
+scale = Vector2(0.75, 0.666667)
+rect = Rect2(-8, -16, 24, 24)
 
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="HurtFlipTimer" to="." method="_on_hurt_flip_timer_timeout"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -113,6 +113,7 @@ menu={
 2d_physics/layer_8="ice_block_slippery"
 2d_physics/layer_9="snow"
 2d_physics/layer_10="spike"
+2d_physics/layer_11="ice_block_residual"
 
 [rendering]
 
