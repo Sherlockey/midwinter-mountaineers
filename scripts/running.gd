@@ -11,6 +11,9 @@ func physics_update(delta: float) -> void:
 	player.velocity.y += player.gravity * delta
 	player.move_and_slide()
 	
+	if not player.is_on_floor():
+		player.coyote_jump_timer.start()
+	
 	if player.scale.y != 1:
 		if not is_equal_approx(input_direction_x, 0.0) and Input.is_action_pressed("move_left"):
 			player.scale.x = player.scale.y * 1

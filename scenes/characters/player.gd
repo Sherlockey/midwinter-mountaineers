@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var acceleration := acceleration_base
 @export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var gravity_falling_multiplier : float = 1.5
-@export var short_hop_multiplier : float = 3.0
+@export var short_hop_multiplier : float = 2.5
 @export var jump_impulse := jump_impulse_base
 @export var is_vulnerable : bool = true
 
@@ -30,6 +30,7 @@ var wind_push : float = 0.0
 @onready var state_machine: StateMachine = $StateMachine
 @onready var drop_through_timer: Timer = $DropThroughTimer
 @onready var full_hop_timer: Timer = $FullHopTimer
+@onready var coyote_jump_timer: Timer = $CoyoteJumpTimer
 @onready var screen_size : Vector2 = get_viewport_rect().size
 @onready var ice_floor_shape_cast_2d: ShapeCast2D = $IceFloorShapeCast2D
 @onready var snow_floor_shape_cast_2d: ShapeCast2D = $SnowFloorShapeCast2D

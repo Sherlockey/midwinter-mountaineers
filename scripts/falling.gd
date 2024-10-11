@@ -23,6 +23,9 @@ func physics_update(delta: float) -> void:
 		finished.emit(FLARING)
 	if Input.is_action_pressed("latch") and player.can_latch:
 		finished.emit(LATCHING)
+	if Input.is_action_just_pressed("jump") and player.coyote_jump_timer.time_left > 0.0:
+		finished.emit(JUMPING)
+		player.coyote_jump_timer.stop()
 	if player.is_on_floor():
 		player.can_latch = true
 		if is_equal_approx(input_direction_x, 0.0):

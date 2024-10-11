@@ -27,6 +27,9 @@ func physics_update(delta: float) -> void:
 	
 	player.move_and_slide()
 	
+	if not player.is_on_floor():
+		player.coyote_jump_timer.start()
+	
 	if Input.is_action_just_pressed("jump"):
 		player.velocity.y = -player.jump_impulse
 		player.is_full_hop = true

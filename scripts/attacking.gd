@@ -22,7 +22,11 @@ func physics_update(delta: float) -> void:
 	var input_direction_x := Input.get_axis("move_left", "move_right")
 	player.velocity.x = move_toward(player.velocity.x, player.speed * input_direction_x + player.wind_push, player.acceleration * delta)
 	player.velocity.y += player.gravity * delta
+	
 	player.move_and_slide()
+	
+	if not player.is_on_floor():
+		player.coyote_jump_timer.start()
 	
 	# Handle object flipping
 	if Input.is_action_pressed("move_left"):

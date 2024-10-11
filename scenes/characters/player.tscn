@@ -555,6 +555,10 @@ one_shot = true
 wait_time = 0.085
 one_shot = true
 
+[node name="CoyoteJumpTimer" type="Timer" parent="."]
+wait_time = 0.09
+one_shot = true
+
 [node name="IceFloorShapeCast2D" type="ShapeCast2D" parent="."]
 visible = false
 position = Vector2(0, -1)

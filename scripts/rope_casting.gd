@@ -24,6 +24,9 @@ func physics_update(delta: float) -> void:
 	
 	player.move_and_slide()
 	
+	if not player.is_on_floor():
+		player.coyote_jump_timer.start()
+	
 	if Input.is_action_pressed("move_left") and player.scale.y == -1:
 		player.rope.cancel_cast()
 	elif Input.is_action_just_pressed("move_right") and player.scale.y == 1:
