@@ -3,12 +3,14 @@ extends PlayerState
 var can_destroy_block : bool = true
 
 @onready var head_marker_2d: Marker2D = $"../../HeadMarker2D"
+@onready var helmet_attack_area: Area2D = $"../../HelmetAttackArea"
 
 
 func enter(previous_state_path: String, data := {}) -> void:
 	player.animation_player.play("jump")
 	player.is_full_hop = true
 	player.full_hop_timer.start()
+	helmet_attack_area.monitoring = true
 	if data:
 		if data.get("jump") == false:
 			return
@@ -76,3 +78,13 @@ func handle_ice_block_collisions() -> void:
 			block.destroy(-player.scale.y)
 			can_destroy_block = false
 			set_deferred("can_destroy_block", true)
+
+
+func exit() -> void:
+	helmet_attack_area.monitoring = false
+
+
+func _on_helmet_attack_area_area_entered(area: Area2D) -> void:
+	if area.get_parent() is Eagle:
+		var eagle : Eagle = area.get_parent()
+		eagle.take_damage()

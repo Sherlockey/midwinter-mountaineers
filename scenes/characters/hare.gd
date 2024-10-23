@@ -18,8 +18,10 @@ var direction : Direction = Direction.LEFT
 @onready var hurt_flip_timer: Timer = $HurtFlipTimer
 @onready var wait_timer: Timer = $WaitTimer
 @onready var crouch_timer: Timer = $CrouchTimer
+@onready var offscreen_timer: Timer = $OffscreenTimer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_box_collision_shape: CollisionShape2D = $HitBox/HitBoxCollisionShape
+@onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
 
 func _ready() -> void:
@@ -61,6 +63,17 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	await wait_timer.timeout
 	set_state(HareState.RUN)
 	hit_box_collision_shape.set_deferred("disabled", false)
+	offscreen_timer.start()
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	if not offscreen_timer.is_stopped:
+		offscreen_timer.stop()
+
+
+func _on_offscreen_timer_timeout() -> void:
+	if not visible_on_screen_notifier_2d.is_on_screen():
+		queue_free()
 
 
 func _on_ice_block_failed_respawn() -> void:

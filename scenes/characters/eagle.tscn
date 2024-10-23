@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmtsi6bt6xph0"]
+[gd_scene load_steps=13 format=3 uid="uid://bmtsi6bt6xph0"]
 
 [ext_resource type="Script" path="res://scenes/characters/eagle.gd" id="1_yxrnx"]
 [ext_resource type="Texture2D" uid="uid://d4hjjykwqqp5m" path="res://assets/sprites/eagle.png" id="2_gbr5a"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2tun6"]
+size = Vector2(18, 20)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8yjgr"]
-size = Vector2(18, 4)
+size = Vector2(18, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n15x0"]
 size = Vector2(22, 12)
@@ -102,7 +105,15 @@ texture = ExtResource("2_gbr5a")
 hframes = 4
 
 [node name="HurtBoxCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_2tun6")
+
+[node name="HelmetHurtBox" type="Area2D" parent="."]
+collision_layer = 2048
+collision_mask = 0
+
+[node name="HelmetHurtBoxCollisionShape" type="CollisionShape2D" parent="HelmetHurtBox"]
+position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_8yjgr")
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -114,6 +125,7 @@ position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_n15x0")
 
 [node name="NotificationArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -122,6 +134,7 @@ position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_etl6r")
 
 [node name="ChaseArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -133,6 +146,7 @@ shape = SubResource("CircleShape2D_x567x")
 one_shot = true
 
 [node name="DistanceChangeTimer" type="Timer" parent="."]
+wait_time = 0.75
 one_shot = true
 
 [node name="WaitTimer" type="Timer" parent="."]
@@ -142,8 +156,8 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
-[node name="OffscreenYTimer" type="Timer" parent="."]
-wait_time = 5.0
+[node name="OffscreenTimer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -156,10 +170,10 @@ autoplay = "idle"
 position = Vector2(0, -12)
 rect = Rect2(-12, -12, 24, 24)
 
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="SpeedChangeTimer" to="." method="_on_speed_change_timer_timeout"]
 [connection signal="timeout" from="DistanceChangeTimer" to="." method="_on_distance_change_timer_timeout"]
-[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
 [connection signal="timeout" from="HurtFlipTimer" to="." method="_on_hurt_flip_timer_timeout"]
-[connection signal="timeout" from="OffscreenYTimer" to="." method="_on_offscreen_y_timer_timeout"]
+[connection signal="timeout" from="OffscreenTimer" to="." method="_on_offscreen_y_timer_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

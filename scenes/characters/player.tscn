@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b3earbls446la"]
+[gd_scene load_steps=40 format=3 uid="uid://b3earbls446la"]
 
 [ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
 [ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
@@ -20,6 +20,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
 radius = 4.0
 height = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f6woi"]
+size = Vector2(8, 6)
 
 [sub_resource type="Animation" id="Animation_q1l5n"]
 length = 0.001
@@ -521,6 +524,16 @@ monitoring = false
 position = Vector2(0, -12)
 polygon = PackedVector2Array(-25, 0, -17, 12, 0, 12, 6, -15, 0, -21, -16, -15)
 
+[node name="HelmetAttackArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2048
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HelmetAttackArea"]
+position = Vector2(0, -19)
+shape = SubResource("RectangleShape2D_f6woi")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_itqri")
@@ -585,6 +598,7 @@ editor_draw_limits = true
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]
 [connection signal="area_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_area_entered"]
 [connection signal="body_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_body_entered"]
+[connection signal="area_entered" from="HelmetAttackArea" to="StateMachine/Jumping" method="_on_helmet_attack_area_area_entered"]
 [connection signal="timeout" from="FlareTimer" to="StateMachine/Flaring" method="_on_flare_timer_timeout"]
 [connection signal="timeout" from="DropThroughTimer" to="." method="_on_drop_through_timer_timeout"]
 [connection signal="timeout" from="FullHopTimer" to="." method="_on_full_hop_timer_timeout"]

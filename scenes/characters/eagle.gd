@@ -1,3 +1,4 @@
+class_name Eagle
 extends CharacterBody2D
 
 enum EagleState { IDLE, RUN, HURT, CHASE }
@@ -27,10 +28,11 @@ var direction : Direction = Direction.LEFT
 @onready var distance_change_timer: Timer = $DistanceChangeTimer
 @onready var wait_timer: Timer = $WaitTimer
 @onready var hurt_flip_timer: Timer = $HurtFlipTimer
-@onready var offscreen_y_timer: Timer = $OffscreenYTimer
+@onready var offscreen_timer: Timer = $OffscreenTimer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_box_collision_shape: CollisionShape2D = $HitBox/HitBoxCollisionShape
 @onready var hurt_box_collision_shape: CollisionShape2D = $HurtBoxCollisionShape
+@onready var helmet_hurt_box_collision_shape: CollisionShape2D = $HelmetHurtBox/HelmetHurtBoxCollisionShape
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
 
@@ -70,10 +72,6 @@ func _on_distance_change_timer_timeout() -> void:
 	distance_change_timer.start()
 
 
-func _on_wait_timer_timeout() -> void:
-	pass # Replace with function body.
-
-
 func _on_hurt_flip_timer_timeout() -> void:
 	if state == EagleState.HURT:
 		sprite_2d.flip_h = !sprite_2d.flip_h
@@ -83,7 +81,12 @@ func _on_hurt_flip_timer_timeout() -> void:
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	#TODO handle situations where the eagle goes offscreen vertically as well as horizontally
 	#TODO if it goes offscreen vertically, maybe despawn and spawn a new eagle in the middle of the screen?
+	if state == EagleState.HURT:
+		queue_free()
+		return
+	
 	hurt_box_collision_shape.set_deferred("disabled", true)
+	helmet_hurt_box_collision_shape.set_deferred("disabled", true)
 	hit_box_collision_shape.set_deferred("disabled", true)
 	
 	var screen_center_position : Vector2 = get_viewport().get_camera_2d().get_screen_center_position()
@@ -93,26 +96,27 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	if abs(top_screen - visible_on_screen_notifier_2d.global_position.y) <= OFFSCREEN_Y_BUFFER or \
 	abs(bottom_screen - visible_on_screen_notifier_2d.global_position.y)  <= OFFSCREEN_Y_BUFFER:
 		disable_all_timers()
-		offscreen_y_timer.start()
 	else:
 		set_state(EagleState.IDLE)
 		turn_around()
 		wait_timer.start()
 		await wait_timer.timeout
 		set_state(EagleState.RUN)
+	
+	offscreen_timer.start()
 
 
-func _on_offscreen_y_timer_timeout() -> void:
+func _on_offscreen_timer_timeout() -> void:
 	if not visible_on_screen_notifier_2d.is_on_screen():
-		print("or respawn?")
 		queue_free()
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	hurt_box_collision_shape.set_deferred("disabled", false)
+	helmet_hurt_box_collision_shape.set_deferred("disabled", false)
 	hit_box_collision_shape.set_deferred("disabled", false)
-	if not offscreen_y_timer.is_stopped:
-		offscreen_y_timer.stop()
+	if not offscreen_timer.is_stopped:
+		offscreen_timer.stop()
 
 
 func take_damage() -> void:
@@ -121,6 +125,8 @@ func take_damage() -> void:
 		velocity.x = 0.0
 		hurt_flip_timer.start()
 		hit_box_collision_shape.set_deferred("disabled", true)
+		hurt_box_collision_shape.set_deferred("disabled", true)
+		helmet_hurt_box_collision_shape.set_deferred("disabled", true)
 
 
 func run(delta : float) -> void:
@@ -152,12 +158,21 @@ func turn_around() -> void:
 func set_random_target_and_heading() -> void:
 	target.x = randf_range(min_distance, max_distance)
 	target.y = randf_range(min_distance, max_distance)
+	# If the eagle is near the top or bottom edge of the screen, have it move towards the middle of the screen 75% of the time
+	var screen_center_position : Vector2 = get_viewport().get_camera_2d().get_screen_center_position()
 	
-	#TODO maybe make the y_sign flip more frequently when the eagle isn't near the middle of the screen
-	#TODO maybe make the y_sign always point towards the center of the screen if the eagle is very low on the screen?
-	var sign_array : Array[int] = [-1, 1]
-	var y_sign : int = sign_array.pick_random()
-	target.y *= y_sign
+	# Check if the eagle is above a high threshold of the screen
+	if visible_on_screen_notifier_2d.global_position.y <= (screen_center_position.y - 90.0):
+		if target.y <= 0.0:
+			target.y *= -1
+	# Check if the eagle is below a low threshold of the screen
+	elif visible_on_screen_notifier_2d.global_position.y >= (screen_center_position.y + 10.0):
+		if target.y >= 0.0:
+			target.y *= -1
+	else:
+		var sign_array : Array[int] = [-1, 1]
+		var y_sign : int = sign_array.pick_random()
+		target.y *= y_sign
 	
 	heading = target.normalized()
 
