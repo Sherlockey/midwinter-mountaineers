@@ -95,6 +95,7 @@ _data = {
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_yxrnx")
+initial_direction = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
@@ -142,10 +143,6 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
-[node name="OffscreenYTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_k2v2e")
@@ -153,13 +150,13 @@ libraries = {
 autoplay = "idle"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(0, -12)
-rect = Rect2(-12, -12, 24, 24)
+visible = false
+position = Vector2(4, -6.85714)
+scale = Vector2(1.6, 1.71429)
+rect = Rect2(-10, -10, 15, 14)
 
 [connection signal="timeout" from="SpeedChangeTimer" to="." method="_on_speed_change_timer_timeout"]
 [connection signal="timeout" from="DistanceChangeTimer" to="." method="_on_distance_change_timer_timeout"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
 [connection signal="timeout" from="HurtFlipTimer" to="." method="_on_hurt_flip_timer_timeout"]
-[connection signal="timeout" from="OffscreenYTimer" to="." method="_on_offscreen_y_timer_timeout"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

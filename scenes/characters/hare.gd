@@ -117,9 +117,9 @@ func turn_around() -> void:
 
 func set_state(new_state: HareState) -> void:
 	state = new_state
-	# TODO fix below, it is not safe. make a dictionary with states and their appropriate animations
 	var new_state_string : String = HareState.keys()[new_state].to_lower()
-	animation_player.play(new_state_string)
+	if animation_player.has_animation(new_state_string):
+		animation_player.play(new_state_string)
 
 
 func check_bottom_rays() -> void:
