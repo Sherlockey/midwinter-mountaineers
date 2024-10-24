@@ -9,6 +9,7 @@ func enter(previous_state_path: String, data := {}) -> void:
 	direction_scalar = data.get("direction_scalar")
 	player.animation_player.play("rope_ride")
 	await get_tree().create_timer(data.get("duration")).timeout
+	player.velocity.x = 0
 	finished.emit(FALLING)
 
 

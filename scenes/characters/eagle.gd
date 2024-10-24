@@ -6,8 +6,8 @@ enum Direction { LEFT = -1, RIGHT = 1 }
 
 const OFFSCREEN_Y_BUFFER : float = 15.0
 
-@export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var initial_direction : Direction = Direction.LEFT
+@export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var player : Player = null
 var target : Vector2 = Vector2.ZERO
@@ -37,6 +37,9 @@ var direction : Direction = Direction.LEFT
 
 
 func _ready() -> void:
+	direction = initial_direction
+	if direction == Direction.RIGHT:
+		sprite_2d.flip_h = !sprite_2d.flip_h
 	set_random_target_and_heading()
 	set_state(EagleState.RUN)
 

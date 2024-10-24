@@ -177,9 +177,12 @@ libraries = {
 autoplay = "idle"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-3, -5.33333)
-scale = Vector2(0.75, 0.666667)
-rect = Rect2(-8, -16, 24, 24)
+position = Vector2(0, -8)
+rect = Rect2(-9, -8, 18, 16)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(0, -8)
+rect = Rect2(-18, -16, 36, 32)
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="HurtFlipTimer" to="." method="_on_hurt_flip_timer_timeout"]

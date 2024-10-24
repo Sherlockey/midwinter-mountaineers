@@ -28,8 +28,6 @@ func _ready() -> void:
 	direction = initial_direction
 	if direction == Direction.RIGHT:
 		sprite_2d.flip_h = !sprite_2d.flip_h
-	wait_timer.start()
-	await wait_timer.timeout
 	set_state(HareState.RUN)
 
 
@@ -155,7 +153,8 @@ func check_bottom_rays() -> void:
 
 
 func start_respawning_ice_block(ice_block : IceBlock) -> void:
-	ice_block.failed_respawn.connect(_on_ice_block_failed_respawn)
+	if not ice_block.failed_respawn.is_connected(_on_ice_block_failed_respawn):
+		ice_block.failed_respawn.connect(_on_ice_block_failed_respawn)
 	set_state(HareState.CROUCH)
 	crouch_timer.start()
 	await crouch_timer.timeout

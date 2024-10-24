@@ -105,10 +105,12 @@ texture = ExtResource("2_gbr5a")
 hframes = 4
 
 [node name="HurtBoxCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_2tun6")
 
 [node name="HelmetHurtBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 2048
 collision_mask = 0
 
@@ -117,6 +119,7 @@ position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_8yjgr")
 
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -169,6 +172,10 @@ autoplay = "idle"
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, -12)
 rect = Rect2(-12, -12, 24, 24)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(0, -12)
+rect = Rect2(-24, -24, 48, 48)
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="SpeedChangeTimer" to="." method="_on_speed_change_timer_timeout"]
