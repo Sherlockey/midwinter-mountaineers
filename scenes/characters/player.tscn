@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b3earbls446la"]
+[gd_scene load_steps=41 format=3 uid="uid://b3earbls446la"]
 
 [ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
 [ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
@@ -15,11 +15,8 @@
 [ext_resource type="Script" path="res://scripts/flaring.gd" id="12_tu33i"]
 [ext_resource type="Script" path="res://scripts/latching.gd" id="13_ud1je"]
 [ext_resource type="PackedScene" uid="uid://dftdg7nsnh08d" path="res://scenes/vfx/flare_vfx.tscn" id="14_ohk5c"]
+[ext_resource type="Script" path="res://scripts/flagging.gd" id="14_tmfjw"]
 [ext_resource type="PackedScene" uid="uid://suigvpjhyy0a" path="res://scenes/vfx/flare.tscn" id="14_wovvs"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iunhp"]
-radius = 4.0
-height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f6woi"]
 size = Vector2(8, 6)
@@ -309,12 +306,28 @@ tracks/0/keys = {
 "values": [1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_j8728"]
+resource_name = "flag"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 21, 22]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_itqri"]
 _data = {
 "RESET": SubResource("Animation_q1l5n"),
 "attack": SubResource("Animation_w186i"),
 "attack_running": SubResource("Animation_hrv5p"),
 "fall": SubResource("Animation_ld5j3"),
+"flag": SubResource("Animation_j8728"),
 "flare": SubResource("Animation_0fc14"),
 "idle": SubResource("Animation_vi8k3"),
 "jump": SubResource("Animation_463so"),
@@ -493,6 +506,9 @@ flare_vfx_scene = ExtResource("14_ohk5c")
 [node name="Latching" type="Node" parent="StateMachine"]
 script = ExtResource("13_ud1je")
 
+[node name="Flagging" type="Node" parent="StateMachine"]
+script = ExtResource("14_tmfjw")
+
 [node name="Rope" parent="." instance=ExtResource("3_oy4eh")]
 position = Vector2(-3, -9)
 
@@ -500,7 +516,7 @@ position = Vector2(-3, -9)
 position = Vector2(-12, -24)
 texture = ExtResource("2_qy41u")
 centered = false
-hframes = 21
+hframes = 23
 frame = 1
 
 [node name="AttackSprite2D" type="Sprite2D" parent="."]
@@ -509,10 +525,9 @@ position = Vector2(0, -12)
 texture = ExtResource("3_3vfw0")
 hframes = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false
-position = Vector2(0, -10)
-shape = SubResource("CapsuleShape2D_iunhp")
+polygon = PackedVector2Array(-1, -20, 1, -20, 3, -19, 4, -17, 4, -3, 3, -1, 1, 0, -1, 0, -3, -1, -4, -3, -4, -17, -3, -19)
 
 [node name="AttackArea" type="Area2D" parent="."]
 visible = false

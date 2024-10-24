@@ -25,6 +25,7 @@ var direction : Direction = Direction.LEFT
 
 
 func _ready() -> void:
+	await get_tree().create_timer(0.25).timeout
 	direction = initial_direction
 	if direction == Direction.RIGHT:
 		sprite_2d.flip_h = !sprite_2d.flip_h

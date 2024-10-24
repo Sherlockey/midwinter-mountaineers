@@ -15,6 +15,7 @@ const FLARING = "Flaring"
 const FLARING_RUNNING = "FlaringRunning"
 const FLARING_JUMPING = "FlaringJumping"
 const LATCHING = "Latching"
+const FLAGGING = "Flagging"
 
 var player: Player
 
