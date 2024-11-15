@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var snow: Snow = $Snow
 @onready var player: Player = $Player
-@onready var tile_map_layer: TileMapLayer = $TileMapLayer
+@onready var tile_map_layer: TileMapLayer = $ForegroundTileMap
 @onready var icicle_spawner: IcicleSpawner
 
 

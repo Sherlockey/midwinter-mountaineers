@@ -13,7 +13,7 @@ const WIND_BLOWING_RIGHT : String = "wind_blowing_right"
 
 
 func _ready() -> void:
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(5.0).timeout
 	play_animation_at_same_time_as_current(WIND_BLOWING_LEFT)
 	wind_changed.emit(-wind_push)
 	await get_tree().create_timer(3.0).timeout
