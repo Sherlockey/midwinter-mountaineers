@@ -5,6 +5,7 @@ enum Direction { LEFT = -1, RIGHT = 1 }
 
 @export var initial_direction : Direction = Direction.LEFT
 @export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
+@export var reset_marker : Marker2D
 
 var state : HareState
 var speed : float = 60.0
@@ -16,20 +17,21 @@ var direction : Direction = Direction.LEFT
 @onready var shape_cast_bottom_right: ShapeCast2D = $ShapeCastBottomRight
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var hurt_flip_timer: Timer = $HurtFlipTimer
-@onready var wait_timer: Timer = $WaitTimer
+@onready var respawn_timer: Timer = $RespawnTimer
 @onready var crouch_timer: Timer = $CrouchTimer
-@onready var offscreen_timer: Timer = $OffscreenTimer
+@onready var damaged_timer: Timer = $DamagedTimer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hit_box_collision_shape: CollisionShape2D = $HitBox/HitBoxCollisionShape
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+@onready var reset_position : Vector2 = position
 
 
 func _ready() -> void:
 	await get_tree().create_timer(0.25).timeout
 	direction = initial_direction
-	if direction == Direction.RIGHT:
-		sprite_2d.flip_h = !sprite_2d.flip_h
-	set_state(HareState.RUN)
+	sprite_2d.flip_h = direction == Direction.RIGHT
+	if reset_marker:
+		reset_position = reset_marker.position
 
 
 func _physics_process(delta: float) -> void:
@@ -56,23 +58,30 @@ func _on_hurt_flip_timer_timeout() -> void:
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	set_state(HareState.IDLE)
-	turn_around()
-	wait_timer.start()
-	await wait_timer.timeout
-	set_state(HareState.RUN)
-	hit_box_collision_shape.set_deferred("disabled", false)
-	offscreen_timer.start()
+	if state == HareState.HURT:
+		position = reset_position
+		direction = initial_direction
+		sprite_2d.flip_h = direction == Direction.RIGHT
+		hit_box_collision_shape.set_deferred("disabled", true)
+		set_state(HareState.IDLE)
+		respawn_timer.start()
+		await respawn_timer.timeout
+		reset()
+	else:
+		turn_around()
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	if not offscreen_timer.is_stopped:
-		offscreen_timer.stop()
+	if respawn_timer.is_stopped():
+		set_state(HareState.RUN)
+	else:
+		await respawn_timer.timeout
+		set_state(HareState.RUN)
 
 
-func _on_offscreen_timer_timeout() -> void:
-	if not visible_on_screen_notifier_2d.is_on_screen():
-		queue_free()
+func _on_damaged_timer_timeout() -> void:
+	if visible_on_screen_notifier_2d.is_on_screen():
+		reset()
 
 
 func _on_ice_block_failed_respawn() -> void:
@@ -83,6 +92,7 @@ func _on_ice_block_failed_respawn() -> void:
 func take_damage() -> void:
 	if state != HareState.HURT:
 		set_state(HareState.HURT)
+		damaged_timer.start()
 		hurt_flip_timer.start()
 		direction = -initial_direction as Direction
 		hit_box_collision_shape.set_deferred("disabled", true)
@@ -124,7 +134,12 @@ func crouch(delta : float) -> void:
 
 func turn_around() -> void:
 	direction = -direction as Direction
-	sprite_2d.flip_h = direction == 1
+	sprite_2d.flip_h = direction == Direction.RIGHT
+
+
+func reset() -> void:
+	set_state(HareState.RUN)
+	hit_box_collision_shape.set_deferred("disabled", false)
 
 
 func set_state(new_state: HareState) -> void:
@@ -161,7 +176,8 @@ func start_respawning_ice_block(ice_block : IceBlock) -> void:
 	await crouch_timer.timeout
 	if state == HareState.CROUCH:
 		ice_block.respawn()
-		ice_block.failed_respawn.disconnect(_on_ice_block_failed_respawn)
+		if ice_block.failed_respawn.is_connected(_on_ice_block_failed_respawn):
+			ice_block.failed_respawn.disconnect(_on_ice_block_failed_respawn)
 		 # Create a short timer because the ice_block is setting its physics bodies deferred, but also it looks better to wait a moment
 		await get_tree().create_timer(0.25).timeout
 		if state == HareState.CROUCH:

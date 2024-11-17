@@ -8,6 +8,7 @@ signal reached()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
+		body.is_vulnerable = false
 		body.state_machine.state.finished.emit(PlayerState.FLAGGING)
 		body.state_machine.state.connect("flagged", finish)
 

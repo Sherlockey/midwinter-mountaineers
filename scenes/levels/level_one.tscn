@@ -449,33 +449,64 @@ position = Vector2(150, -18)
 [node name="Durian2" parent="Collectables" instance=ExtResource("18_48tc4")]
 position = Vector2(378, -378)
 
-[node name="Hare" parent="." instance=ExtResource("2_jmrac")]
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Hare" parent="Enemies" node_paths=PackedStringArray("reset_marker") instance=ExtResource("2_jmrac")]
+position = Vector2(95, 36)
+initial_direction = 1
+reset_marker = NodePath("../Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="Enemies"]
 position = Vector2(-9, 36)
-initial_direction = 1
 
-[node name="Hare2" parent="." instance=ExtResource("2_jmrac")]
-position = Vector2(66, -300)
+[node name="Hare2" parent="Enemies" node_paths=PackedStringArray("reset_marker") instance=ExtResource("2_jmrac")]
+position = Vector2(84, -300)
 initial_direction = 1
+reset_marker = NodePath("../Marker2D2")
 
-[node name="Hare3" parent="." instance=ExtResource("2_jmrac")]
+[node name="Marker2D2" type="Marker2D" parent="Enemies"]
+position = Vector2(-9, -300)
+
+[node name="Hare3" parent="Enemies" node_paths=PackedStringArray("reset_marker") instance=ExtResource("2_jmrac")]
+position = Vector2(360, -300)
+reset_marker = NodePath("../Marker2D3")
+
+[node name="Marker2D3" type="Marker2D" parent="Enemies"]
 position = Vector2(441, -300)
 
-[node name="Hare4" parent="." instance=ExtResource("2_jmrac")]
+[node name="Hare4" parent="Enemies" node_paths=PackedStringArray("reset_marker") instance=ExtResource("2_jmrac")]
+position = Vector2(344, -480)
+reset_marker = NodePath("../Marker2D4")
+
+[node name="Marker2D4" type="Marker2D" parent="Enemies"]
 position = Vector2(441, -480)
 
-[node name="Hare5" parent="." instance=ExtResource("2_jmrac")]
-position = Vector2(42, -504)
+[node name="Hare5" parent="Enemies" node_paths=PackedStringArray("reset_marker") instance=ExtResource("2_jmrac")]
+position = Vector2(161, -504)
 initial_direction = 1
+reset_marker = NodePath("../Marker2D5")
 
-[node name="Hare6" parent="." instance=ExtResource("2_jmrac")]
-position = Vector2(28, -540)
+[node name="Marker2D5" type="Marker2D" parent="Enemies"]
+position = Vector2(-9, -504)
+
+[node name="Hare6" parent="Enemies" node_paths=PackedStringArray("reset_marker") instance=ExtResource("2_jmrac")]
+position = Vector2(102, -540)
 initial_direction = 1
+reset_marker = NodePath("../Marker2D6")
 
-[node name="Hare7" parent="." instance=ExtResource("2_jmrac")]
+[node name="Marker2D6" type="Marker2D" parent="Enemies"]
+position = Vector2(-9, -540)
+
+[node name="Hare7" parent="Enemies" node_paths=PackedStringArray("reset_marker") instance=ExtResource("2_jmrac")]
+position = Vector2(407, -576)
+reset_marker = NodePath("../Marker2D7")
+
+[node name="Marker2D7" type="Marker2D" parent="Enemies"]
 position = Vector2(441, -576)
 
-[node name="Eagle" parent="." instance=ExtResource("22_7x4v2")]
-position = Vector2(444, 24)
+[node name="Eagle" parent="Enemies" instance=ExtResource("22_7x4v2")]
+position = Vector2(341, 24)
+initial_direction = 1
 
 [node name="Player" parent="." instance=ExtResource("1_iy506")]
-position = Vector2(222, -423)
+position = Vector2(222, -549)
