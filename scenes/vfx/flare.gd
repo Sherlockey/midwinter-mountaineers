@@ -17,6 +17,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if body is CollisionObject2D:
+		if body.get_collision_layer_value(12): # Then it is a brick
+			queue_free()
+			return
+	
 	if body.has_method("destroy"):
 		body.destroy()
 

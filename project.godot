@@ -160,6 +160,7 @@ menu2={
 2d_physics/layer_9="snow"
 2d_physics/layer_10="spike"
 2d_physics/layer_11="ice_block_residual"
+2d_physics/layer_12="brick"
 
 [rendering]
 
