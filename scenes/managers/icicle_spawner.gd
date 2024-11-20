@@ -7,7 +7,7 @@ extends Node
 
 var tile_map_layer : TileMapLayer = null
 var ice_block_array : Array
-var player: Player = null
+var players: Array[Player] = []
 var icicle_y_offset : float = 12.0
 
 @onready var timer: Timer = $Timer
@@ -16,7 +16,7 @@ var icicle_y_offset : float = 12.0
 func _ready() -> void:
 	await get_tree().process_frame
 	tile_map_layer = owner.tile_map_layer
-	player = owner.player
+	players = owner.players
 	assert(tile_map_layer != null, "The IcicleSpawner type must be used only in the level scene. It needs the owner to have a TileMapLayer node.")
 	
 	populate_ice_block_array()
@@ -37,8 +37,9 @@ func spawn_icicle() -> void:
 	# Choose a valid IceBlock that is above the player, is enabled, and doesn't already have an icicle
 	var valid_ice_blocks : Array[IceBlock] = []
 	for ice_block : IceBlock in ice_block_array:
-		if ice_block.global_position.y < player.position.y and not ice_block.is_disabled and not ice_block.has_icicle:
-			valid_ice_blocks.append(ice_block)
+		for player in players:
+			if ice_block.global_position.y < player.global_position.y and not ice_block.is_disabled and not ice_block.has_icicle:
+				valid_ice_blocks.append(ice_block)
 	if valid_ice_blocks.size() == 0:
 		return
 	var chosen_ice_block : IceBlock = valid_ice_blocks[randi_range(0, valid_ice_blocks.size() - 1)]

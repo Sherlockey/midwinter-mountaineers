@@ -17,7 +17,7 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 
 func physics_update(delta: float) -> void:
-	var input_direction_x := Input.get_axis("move_left", "move_right")
+	var input_direction_x := Input.get_axis(player.move_left_action, player.move_right_action)
 	player.velocity.x = move_toward(player.velocity.x, player.speed * input_direction_x + player.wind_push, player.acceleration * delta)
 	
 	if player.is_full_hop:
@@ -30,14 +30,14 @@ func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		player.coyote_jump_timer.start()
 	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed(player.jump_action):
 		player.velocity.y = -player.jump_impulse
 		player.is_full_hop = true
 		player.full_hop_timer.start()
 
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("move_down"):
+	if event.is_action_pressed(player.move_down_action):
 		player.set_collision_mask_value(6, false) # Disable cloud mask
 		if not player.drop_through_timer.is_stopped():
 			player.drop_through_timer.stop()

@@ -33,7 +33,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -162,6 +162,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_j8728"]
+resource_name = "flag"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 21, 22]
 }
 
 [sub_resource type="Animation" id="Animation_0fc14"]
@@ -316,21 +331,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_j8728"]
-resource_name = "flag"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.733333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 21, 22]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_itqri"]
@@ -529,7 +529,6 @@ position = Vector2(-12, -24)
 texture = ExtResource("2_qy41u")
 centered = false
 hframes = 23
-frame = 1
 
 [node name="AttackSprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -544,7 +543,7 @@ polygon = PackedVector2Array(-1, -20, 1, -20, 3, -19, 4, -17, 4, -3, 3, -1, 1, 0
 [node name="AttackArea" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
-collision_mask = 516
+collision_mask = 4
 monitoring = false
 
 [node name="AttackCollisionPolygon" type="CollisionPolygon2D" parent="AttackArea"]
@@ -615,12 +614,9 @@ collision_mask = 256
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="Camera2D" type="Camera2D" parent="."]
-limit_left = 0
-limit_right = 432
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-editor_draw_limits = true
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -10)
+rect = Rect2(-8, -11, 16, 21)
 
 [connection signal="connected" from="Rope" to="." method="_on_rope_connected"]
 [connection signal="area_entered" from="AttackArea" to="StateMachine/Attacking" method="_on_attack_area_area_entered"]
@@ -629,3 +625,4 @@ editor_draw_limits = true
 [connection signal="timeout" from="FlareTimer" to="StateMachine/Flaring" method="_on_flare_timer_timeout"]
 [connection signal="timeout" from="DropThroughTimer" to="." method="_on_drop_through_timer_timeout"]
 [connection signal="timeout" from="FullHopTimer" to="." method="_on_full_hop_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=4 uid="uid://41eh61hv8nhi"]
 
-[ext_resource type="Script" path="res://scenes/levels/test_level.gd" id="1_xg8ag"]
+[ext_resource type="Script" path="res://scenes/levels/level_one.gd" id="1_xg8ag"]
 [ext_resource type="PackedScene" uid="uid://fmrmbnj1csjs" path="res://scenes/managers/icicle_spawner.tscn" id="2_tgg8s"]
 [ext_resource type="PackedScene" uid="uid://ct5p1f68y1meq" path="res://scenes/vfx/snow.tscn" id="3_bbe5w"]
 [ext_resource type="PackedScene" uid="uid://d1xlh24l0q4fj" path="res://scenes/props/brick.tscn" id="4_c0nc7"]

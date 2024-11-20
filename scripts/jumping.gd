@@ -22,7 +22,7 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 func physics_update(delta: float) -> void:
 	# Handle movement
-	var input_direction_x := Input.get_axis("move_left", "move_right")
+	var input_direction_x := Input.get_axis(player.move_left_action, player.move_right_action)
 	player.velocity.x = move_toward(player.velocity.x, player.speed * input_direction_x + player.wind_push, player.acceleration * delta)
 	
 	if player.is_full_hop:
@@ -35,24 +35,24 @@ func physics_update(delta: float) -> void:
 	handle_ice_block_collisions()
 	
 	# Handle sprite flipping
-	if Input.is_action_pressed("move_left"):
+	if Input.is_action_pressed(player.move_left_action):
 		player.scale.x = player.scale.y * 1
-	if Input.is_action_pressed("move_right"):
+	if Input.is_action_pressed(player.move_right_action):
 		player.scale.x = player.scale.y * -1
 	
 	# Handle exit conditions
 	if player.velocity.y >= 0:
 		finished.emit(FALLING)
-	if Input.is_action_pressed("rope"):
+	if Input.is_action_pressed(player.rope_action):
 		finished.emit(ROPE_CASTING)
-	if Input.is_action_pressed("flare") and player.can_flare:
+	if Input.is_action_pressed(player.flare_action) and player.can_flare:
 		finished.emit(FLARING)
-	if Input.is_action_pressed("latch") and player.can_latch:
+	if Input.is_action_pressed(player.latch_action) and player.can_latch:
 		finished.emit(LATCHING)
 
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("move_down"):
+	if event.is_action_pressed(player.move_down_action):
 		player.set_collision_mask_value(6, false) # Disable cloud mask
 		if not player.drop_through_timer.is_stopped():
 			player.drop_through_timer.stop()

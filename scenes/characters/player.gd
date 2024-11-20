@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal screen_exited(player: Player)
+
 @export var speed := speed_base
 @export var acceleration := acceleration_base
 @export var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -9,6 +11,16 @@ extends CharacterBody2D
 @export var jump_impulse := jump_impulse_base
 @export var is_vulnerable : bool = true
 
+var move_up_action := "move_up"
+var move_down_action := "move_down"
+var move_left_action := "move_left"
+var move_right_action := "move_right"
+var jump_action := "jump"
+var attack_action := "attack"
+var rope_action := "rope"
+var flare_action := "flare"
+var latch_action := "latch"
+var menu_action := "menu"
 var is_full_hop : bool = false
 var is_in_snow : bool = false
 var can_latch : bool = true
@@ -44,7 +56,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_drop_through_timer_timeout() -> void:
-	if not Input.is_action_pressed("move_down"):
+	if not Input.is_action_pressed(move_down_action):
 		set_collision_mask_value(6, true) # Enable cloud mask
 	else:
 		drop_through_timer.start()
@@ -61,6 +73,14 @@ func take_damage() -> void:
 		# Could instead take location of damage and move away from that
 		velocity.x = damaged_impulse_modifier * velocity.x
 		velocity.y = -jump_impulse_slowed
+
+
+func respawn(respawn_position: Vector2) -> void:
+	state_machine.state.finished.emit(PlayerState.FALLING)
+	velocity = Vector2.ZERO
+	global_position = respawn_position
+	damaged_animation_player.play("damaged")
+	state_machine.state.finished.emit(PlayerState.FALLING)
 
 
 func handle_screen_wrap() -> void:
@@ -91,7 +111,11 @@ func handle_slowed() -> void:
 
 
 func _on_full_hop_timer_timeout() -> void:
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_pressed(jump_action):
 		is_full_hop = true
 	else:
 		is_full_hop = false
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	screen_exited.emit(self)

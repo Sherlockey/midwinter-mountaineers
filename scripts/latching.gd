@@ -15,9 +15,9 @@ func physics_update(delta: float) -> void:
 	if not is_latched:
 		player.move_and_slide()
 	
-	if Input.is_action_just_pressed("move_down"):
+	if Input.is_action_just_pressed(player.move_down_action):
 		finished.emit(FALLING)
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed(player.jump_action):
 		var data := { "jump_impulse_scalar" : jump_impulse_scalar}
 		finished.emit(JUMPING, data)
 

@@ -1,7 +1,7 @@
-[gd_scene load_steps=40 format=4 uid="uid://os8tmgslpdpn"]
+[gd_scene load_steps=41 format=4 uid="uid://os8tmgslpdpn"]
 
 [ext_resource type="PackedScene" uid="uid://d1xlh24l0q4fj" path="res://scenes/props/brick.tscn" id="1_803di"]
-[ext_resource type="Script" path="res://scenes/levels/test_level.gd" id="1_gqi6t"]
+[ext_resource type="Script" path="res://scenes/levels/level_one.gd" id="1_gqi6t"]
 [ext_resource type="PackedScene" uid="uid://b3earbls446la" path="res://scenes/characters/player.tscn" id="1_iy506"]
 [ext_resource type="PackedScene" uid="uid://ct5p1f68y1meq" path="res://scenes/vfx/snow.tscn" id="1_sst6l"]
 [ext_resource type="PackedScene" uid="uid://c6j5244p40wx1" path="res://scenes/props/ice_block.tscn" id="1_xpbnq"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://c5eupcpk2qj0e" path="res://scenes/props/ice_block_snowy.tscn" id="18_k0fm5"]
 [ext_resource type="PackedScene" uid="uid://c7mhmiqnm8q3g" path="res://scenes/props/cloud_platform.tscn" id="19_frwfy"]
 [ext_resource type="PackedScene" uid="uid://bmtsi6bt6xph0" path="res://scenes/characters/eagle.tscn" id="22_7x4v2"]
+[ext_resource type="PackedScene" uid="uid://bx2g2l5g11yxg" path="res://scenes/camera/camera.tscn" id="26_r63oq"]
 
 [sub_resource type="Gradient" id="Gradient_ppc7g"]
 interpolation_mode = 1
@@ -181,8 +182,10 @@ _data = {
 "move": SubResource("Animation_j35pf")
 }
 
-[node name="LevelOne" type="Node2D"]
+[node name="LevelOne" type="Node2D" node_paths=PackedStringArray("players")]
 script = ExtResource("1_gqi6t")
+players = [NodePath("Player")]
+player_scene = ExtResource("1_iy506")
 
 [node name="Sunset" type="TextureRect" parent="."]
 offset_top = -766.0
@@ -509,4 +512,11 @@ position = Vector2(341, 24)
 initial_direction = 1
 
 [node name="Player" parent="." instance=ExtResource("1_iy506")]
-position = Vector2(222, -549)
+position = Vector2(184, 156)
+
+[node name="Player2StartingPosition" type="Marker2D" parent="."]
+position = Vector2(248, 156)
+
+[node name="Camera" parent="." node_paths=PackedStringArray("players") instance=ExtResource("26_r63oq")]
+position = Vector2(0, 156)
+players = [NodePath("../Player")]

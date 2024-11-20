@@ -9,8 +9,9 @@ func enter(previous_state_path: String, data := {}) -> void:
 	direction_scalar = data.get("direction_scalar")
 	player.animation_player.play("rope_ride")
 	await get_tree().create_timer(data.get("duration")).timeout
-	player.velocity.x = 0
-	finished.emit(FALLING)
+	if player.state_machine.state == self:
+		player.velocity.x = 0
+		finished.emit(FALLING)
 
 
 func physics_update(delta: float) -> void:
@@ -18,5 +19,5 @@ func physics_update(delta: float) -> void:
 	player.velocity.y = 0.0
 	player.move_and_slide()
 	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed(player.jump_action):
 		finished.emit(JUMPING)

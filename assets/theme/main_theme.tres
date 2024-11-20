@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bmpo5wep58hom"]
+
+[ext_resource type="StyleBox" uid="uid://uj3mgfl4xt2r" path="res://assets/theme/new_style_box_flat.tres" id="1_7hser"]
+[ext_resource type="FontFile" uid="uid://cq8mp14o8gybq" path="res://assets/theme/upheavtt.ttf" id="2_y7c6p"]
+
+[resource]
+default_font = ExtResource("2_y7c6p")
+default_font_size = 14
+Button/styles/disabled = ExtResource("1_7hser")
+Button/styles/focus = ExtResource("1_7hser")
+Button/styles/hover = ExtResource("1_7hser")
+Button/styles/normal = ExtResource("1_7hser")
+Panel/styles/panel = ExtResource("1_7hser")
