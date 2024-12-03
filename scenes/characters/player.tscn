@@ -1,6 +1,7 @@
-[gd_scene load_steps=41 format=3 uid="uid://b3earbls446la"]
+[gd_scene load_steps=42 format=3 uid="uid://b3earbls446la"]
 
 [ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_e6efu"]
+[ext_resource type="Texture2D" uid="uid://dve2pj4jr7dda" path="res://assets/sprites/mountaineer2.png" id="2_j6qds"]
 [ext_resource type="Texture2D" uid="uid://ck7y1fncgnimx" path="res://assets/sprites/mountaineer.png" id="2_qy41u"]
 [ext_resource type="Texture2D" uid="uid://4r6dd4ielg58" path="res://assets/sprites/attack_vfx.png" id="3_3vfw0"]
 [ext_resource type="PackedScene" uid="uid://b4ochdmah8r2m" path="res://scenes/characters/rope.tscn" id="3_oy4eh"]
@@ -485,6 +486,7 @@ collision_layer = 2
 collision_mask = 161
 script = ExtResource("1_e6efu")
 speed = 100.0
+player_2_texture = ExtResource("2_j6qds")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("4_ls4fq")

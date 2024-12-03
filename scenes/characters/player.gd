@@ -10,6 +10,7 @@ signal screen_exited(player: Player)
 @export var short_hop_multiplier : float = 2.5
 @export var jump_impulse := jump_impulse_base
 @export var is_vulnerable : bool = true
+@export var player_2_texture : Texture2D
 
 var move_up_action := "move_up"
 var move_down_action := "move_down"
@@ -33,6 +34,7 @@ var jump_impulse_base: float = 330.0
 var jump_impulse_slowed : float = 185.714
 var damaged_impulse_modifier : float = -1.25
 var wind_push : float = 0.0
+var player_number : int = 1
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_animation_player: AnimationPlayer = $AttackAnimationPlayer
