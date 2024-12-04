@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5eupcpk2qj0e"]
+[gd_scene load_steps=7 format=3 uid="uid://s1444wre14e7"]
 
-[ext_resource type="Texture2D" uid="uid://duo5f22iiwg6l" path="res://assets/sprites/ice_block_snowy.png" id="1_2i7ih"]
-[ext_resource type="Script" path="res://scenes/props/ice_block_snowy.gd" id="1_xcu15"]
-[ext_resource type="PackedScene" uid="uid://dnmhin4eei0rv" path="res://scenes/props/ice_block_destroyed.tscn" id="2_1x4eq"]
+[ext_resource type="Script" path="res://scenes/props/ice_block_snowy.gd" id="1_5yl5k"]
+[ext_resource type="PackedScene" uid="uid://c1cdmtpp5kygr" path="res://scenes/props/ice_block_destroyed_green.tscn" id="2_bqf2s"]
+[ext_resource type="Texture2D" uid="uid://dtdni2y8r0hek" path="res://assets/sprites/ice_block_snowy_green.png" id="3_csr1s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cwna3"]
 size = Vector2(12, 12)
@@ -13,15 +13,15 @@ size = Vector2(12, 5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tqiy"]
 size = Vector2(12, 12)
 
-[node name="IceBlockSnowy" type="StaticBody2D"]
+[node name="IceBlockSnowyGreen" type="StaticBody2D"]
 top_level = true
 collision_mask = 0
-script = ExtResource("1_xcu15")
-ice_block_destroyed_scene = ExtResource("2_1x4eq")
+script = ExtResource("1_5yl5k")
+ice_block_destroyed_scene = ExtResource("2_bqf2s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -2)
-texture = ExtResource("1_2i7ih")
+texture = ExtResource("3_csr1s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

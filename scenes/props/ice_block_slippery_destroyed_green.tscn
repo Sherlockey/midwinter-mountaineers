@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://btfe4d8p0n0d1"]
+[gd_scene load_steps=3 format=3 uid="uid://baal467l1qxwj"]
 
-[ext_resource type="Script" path="res://scenes/props/ice_block_destroyed.gd" id="1_bjyhw"]
-[ext_resource type="Texture2D" uid="uid://b8y5uk7h86wyi" path="res://assets/sprites/ice_block_destroyed.png" id="2_iuefk"]
+[ext_resource type="Script" path="res://scenes/props/ice_block_destroyed.gd" id="1_bun0j"]
+[ext_resource type="Texture2D" uid="uid://qgt41vbul8h2" path="res://assets/sprites/ice_block_destroyed_green.png" id="2_bfp5d"]
 
-[node name="IceBlockSlipperyDestroyed" type="RigidBody2D"]
+[node name="IceBlockSlipperyDestroyedGreen" type="RigidBody2D"]
 linear_velocity = Vector2(100, -225)
-script = ExtResource("1_bjyhw")
+script = ExtResource("1_bun0j")
 sprite_facing_left = 2
 sprite_facing_right = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_iuefk")
+texture = ExtResource("2_bfp5d")
 hframes = 4
 frame = 2
 

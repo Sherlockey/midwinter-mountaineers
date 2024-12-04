@@ -2,8 +2,8 @@ class_name IceBlockDestroyed
 extends RigidBody2D
 
 enum SpriteFrame {
-	BLUE_FACING_LEFT = 0,
-	BLUE_FACING_RIGHT = 1,
+	DEFAULT_FACING_LEFT = 0,
+	DEFAULT_FACING_RIGHT = 1,
 	SLIPPERY_FACING_LEFT = 2,
 	SLIPPERY_FACING_RIGT = 3,
 }

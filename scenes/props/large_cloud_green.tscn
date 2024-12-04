@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1avjqgtx2gwt"]
+
+[ext_resource type="Texture2D" uid="uid://cx43tkb4g5kb1" path="res://assets/sprites/large_cloud_green.png" id="1_3f17b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cat5"]
+size = Vector2(12, 12)
+
+[node name="LargeCloudGreen" type="AnimatableBody2D"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3f17b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_7cat5")
+one_way_collision = true

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://i2ofh8a7atr0"]
+
+[ext_resource type="Texture2D" uid="uid://cm0v0jhrdi3fk" path="res://assets/sprites/brick_green.png" id="1_iyay8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cat5"]
+size = Vector2(12, 12)
+
+[node name="BrickGreen" type="StaticBody2D"]
+collision_layer = 2049
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_iyay8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_7cat5")

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dip3h6guly1bl"]
+
+[ext_resource type="Script" path="res://scenes/props/spike.gd" id="1_psje8"]
+[ext_resource type="Texture2D" uid="uid://cn0b8s551yadu" path="res://assets/sprites/spike_orange.png" id="2_7127e"]
+
+[node name="SpikeOrange" type="Area2D"]
+collision_layer = 512
+collision_mask = 2
+script = ExtResource("1_psje8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_7127e")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-5, 6, 0, -4, 5, 6)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

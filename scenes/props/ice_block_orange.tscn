@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxw8h0sdhqqns"]
+
+[ext_resource type="Script" path="res://scenes/props/ice_block.gd" id="1_rj07k"]
+[ext_resource type="PackedScene" uid="uid://vp0ghtd3nfge" path="res://scenes/props/ice_block_destroyed_orange.tscn" id="2_fp7br"]
+[ext_resource type="Texture2D" uid="uid://18wvhopg5aty" path="res://assets/sprites/ice_block_orange.png" id="3_xhn02"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cat5"]
+size = Vector2(12, 12)
+
+[node name="IceBlockOrange" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_rj07k")
+ice_block_destroyed_scene = ExtResource("2_fp7br")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_xhn02")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_7cat5")
+
+[node name="ResidualArea" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 2
+
+[node name="ResidualCollisionShape" type="CollisionShape2D" parent="ResidualArea"]
+visible = false
+shape = SubResource("RectangleShape2D_7cat5")
+disabled = true

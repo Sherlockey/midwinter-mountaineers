@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2vy3qxdetajh"]
+
+[ext_resource type="Script" path="res://scenes/props/ice_block.gd" id="1_5yavm"]
+[ext_resource type="PackedScene" uid="uid://baal467l1qxwj" path="res://scenes/props/ice_block_slippery_destroyed_green.tscn" id="2_0wn86"]
+[ext_resource type="Texture2D" uid="uid://cgviwvcmlogdi" path="res://assets/sprites/ice_block_green.png" id="3_mvwqx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cat5"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2vyw8"]
+size = Vector2(12, 12)
+
+[node name="IceBlockSlipperyGreen" type="StaticBody2D"]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_5yavm")
+ice_block_destroyed_scene = ExtResource("2_0wn86")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_mvwqx")
+hframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_7cat5")
+
+[node name="ResidualArea" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 0
+
+[node name="ResidualCollisionShape" type="CollisionShape2D" parent="ResidualArea"]
+visible = false
+shape = SubResource("RectangleShape2D_2vyw8")
+disabled = true
