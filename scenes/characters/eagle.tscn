@@ -95,6 +95,7 @@ _data = {
 }
 
 [node name="Eagle" type="CharacterBody2D"]
+top_level = true
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_yxrnx")
