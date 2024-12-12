@@ -66,7 +66,7 @@ func _on_drop_through_timer_timeout() -> void:
 		drop_through_timer.start()
 
 
-func _on_snow_wind_changed(new_wind_push : float) -> void:
+func _on_wind_manager_wind_changed(new_wind_push : float) -> void:
 	wind_push = new_wind_push
 
 

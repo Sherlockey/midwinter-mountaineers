@@ -9,7 +9,7 @@ extends Control
 
 func _ready() -> void:
 	if SaveGame.load_data() == null:
-		high_score_label.text = "High Score: 000000"
+		high_score_label.text = "High Score: 00000"
 	else:
 		var save_data := SaveGame.load_data()
 		var high_score := save_data.high_score

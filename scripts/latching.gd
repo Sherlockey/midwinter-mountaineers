@@ -14,6 +14,7 @@ func enter(previous_state_path: String, data := {}) -> void:
 func physics_update(delta: float) -> void:
 	if not is_latched:
 		player.move_and_slide()
+		return
 	
 	if Input.is_action_just_pressed(player.move_down_action):
 		finished.emit(FALLING)

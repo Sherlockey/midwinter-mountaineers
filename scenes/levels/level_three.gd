@@ -18,7 +18,7 @@ var flare_action2 := "flare2"
 var latch_action2 := "latch2"
 var menu_action2 := "menu2"
 
-@onready var snow_green: Snow = $SnowGreen
+@onready var wind_manager: WindManager = $WindManager
 @onready var tile_map_layer: TileMapLayer = $ForegroundTileMap
 @onready var icicle_spawner: IcicleSpawner
 @onready var player_2_starting_position: Marker2D = $Player2StartingPosition
@@ -55,7 +55,7 @@ func _ready() -> void:
 	
 	# Set up signals for all players
 	for player in players:
-		snow_green.wind_changed.connect(player._on_snow_wind_changed)
+		wind_manager.wind_changed.connect(player._on_wind_manager_wind_changed)
 		player.screen_exited.connect(_on_player_screen_exited)
 		if player.player_number == 1:
 			player.fruit_collected.connect(hud._on_player_one_fruit_collected)
