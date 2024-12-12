@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://h5j015botpx1"]
+
+[ext_resource type="Texture2D" uid="uid://c3fqvc6rwub8h" path="res://assets/sprites/mountaineer_icon.png" id="1_m1va1"]
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1_yc8xq"]
+[ext_resource type="Texture2D" uid="uid://uuld71gxet5j" path="res://assets/sprites/mountaineer_icon_two.png" id="2_k8tyd"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_yc8xq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -19.0
+offset_right = 216.0
+offset_bottom = -5.0
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="PlayerOneContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PlayerOneIcon" type="TextureRect" parent="HBoxContainer/PlayerOneContainer"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+texture = ExtResource("1_m1va1")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="PlayerOneScore" type="Label" parent="HBoxContainer/PlayerOneContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "9999"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="PlayerTwoContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PlayerTwoIcon" type="TextureRect" parent="HBoxContainer/PlayerTwoContainer"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+texture = ExtResource("2_k8tyd")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="PlayerTwoScore" type="Label" parent="HBoxContainer/PlayerTwoContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "9999"
+horizontal_alignment = 1
+autowrap_mode = 2

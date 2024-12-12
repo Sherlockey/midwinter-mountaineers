@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 signal screen_exited(player: Player)
+signal fruit_collected(value: int)
 
 @export var speed := speed_base
 @export var acceleration := acceleration_base
@@ -48,6 +49,7 @@ var player_number : int = 1
 @onready var screen_size : Vector2 = get_viewport_rect().size
 @onready var ice_floor_shape_cast_2d: ShapeCast2D = $IceFloorShapeCast2D
 @onready var snow_floor_shape_cast_2d: ShapeCast2D = $SnowFloorShapeCast2D
+@onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
 
 
 func _physics_process(delta: float) -> void:

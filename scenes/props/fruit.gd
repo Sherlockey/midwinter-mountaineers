@@ -8,5 +8,6 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print(point_value)
+	if body is Player:
+		body.fruit_collected.emit(point_value)
 	queue_free()

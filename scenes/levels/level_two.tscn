@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=4 uid="uid://dvdxao0r0bltm"]
+[gd_scene load_steps=100 format=4 uid="uid://dvdxao0r0bltm"]
 
 [ext_resource type="Script" path="res://scenes/levels/level_two.gd" id="1_uiam1"]
 [ext_resource type="PackedScene" uid="uid://b3earbls446la" path="res://scenes/characters/player.tscn" id="2_tp1gr"]
@@ -52,6 +52,7 @@
 [ext_resource type="PackedScene" uid="uid://bte6xlfjiu1ql" path="res://scenes/props/grape.tscn" id="49_06uco"]
 [ext_resource type="PackedScene" uid="uid://bmtsi6bt6xph0" path="res://scenes/characters/eagle.tscn" id="50_v7krl"]
 [ext_resource type="PackedScene" uid="uid://dgdyprhadx57k" path="res://scenes/characters/hare.tscn" id="51_86lg8"]
+[ext_resource type="PackedScene" uid="uid://h5j015botpx1" path="res://scenes/ui/hud.tscn" id="53_w33o3"]
 
 [sub_resource type="Gradient" id="Gradient_ppc7g"]
 interpolation_mode = 1
@@ -836,5 +837,7 @@ position = Vector2(248, 156)
 [node name="Camera" parent="." node_paths=PackedStringArray("players") instance=ExtResource("28_7j48w")]
 position = Vector2(0, 156)
 players = [NodePath("../Player")]
+
+[node name="HUD" parent="." instance=ExtResource("53_w33o3")]
 
 [connection signal="reached" from="Props/Flag" to="." method="_on_flag_reached"]

@@ -197,9 +197,8 @@ _data = {
 "move": SubResource("Animation_j35pf")
 }
 
-[node name="LevelOne" type="Node2D" node_paths=PackedStringArray("players")]
+[node name="LevelOne" type="Node2D"]
 script = ExtResource("1_gqi6t")
-players = [NodePath("Player")]
 player_scene = ExtResource("1_iy506")
 
 [node name="Sunset" type="TextureRect" parent="."]

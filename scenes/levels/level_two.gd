@@ -1,6 +1,8 @@
 class_name LevelTwo
 extends Node2D
 
+signal level_finished
+
 @export var players : Array[Player]
 @export var player_scene : PackedScene
 
@@ -21,6 +23,7 @@ var menu_action2 := "menu2"
 @onready var icicle_spawner: IcicleSpawner
 @onready var player_2_starting_position: Marker2D = $Player2StartingPosition
 @onready var camera: Camera = $Camera
+@onready var hud: HUD = $HUD
 
 
 func _ready() -> void:
@@ -52,9 +55,22 @@ func _ready() -> void:
 	
 	# Set up signals for all players
 	for player in players:
-		print(player.name)
 		snow_orange.wind_changed.connect(player._on_snow_wind_changed)
 		player.screen_exited.connect(_on_player_screen_exited)
+		if player.player_number == 1:
+			player.fruit_collected.connect(hud._on_player_one_fruit_collected)
+		elif player.player_number == 2:
+			player.fruit_collected.connect(hud._on_player_two_fruit_collected)
+	
+		# Set up HUD
+	if number_of_players == 1:
+		setup_hud(number_of_players, [0])
+	if number_of_players == 2:
+		setup_hud(number_of_players, [0, 0])
+
+
+func setup_hud(player_count: int, player_scores: Array[int]) -> void:
+	hud.setup(player_count, player_scores)
 
 
 func _on_player_screen_exited(respawning_player: Player) -> void:
@@ -71,12 +87,5 @@ func _on_player_screen_exited(respawning_player: Player) -> void:
 
 func _on_flag_reached(number_of_players_finished: int) -> void:
 	if number_of_players_finished == number_of_players:
-		print("Everyone has reached the flag!")
-		Engine.time_scale = 0.5
 		await get_tree().create_timer(0.75, false).timeout
-		Engine.time_scale = 1.0
-		# TODO request next scene here instead of quitting
-		get_tree().quit()
-	else:
-		print("Not all players are done yet")
-		# TODO start a timer in HUD that counts down
+		level_finished.emit()

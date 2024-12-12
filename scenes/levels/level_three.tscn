@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=4 uid="uid://cweetajlnuxop"]
+[gd_scene load_steps=107 format=4 uid="uid://cweetajlnuxop"]
 
 [ext_resource type="Script" path="res://scenes/levels/level_three.gd" id="1_gjevt"]
 [ext_resource type="PackedScene" uid="uid://b3earbls446la" path="res://scenes/characters/player.tscn" id="2_24v4n"]
@@ -53,6 +53,7 @@
 [ext_resource type="PackedScene" uid="uid://6cjy5ij7prsr" path="res://scenes/props/durian.tscn" id="50_w5a6m"]
 [ext_resource type="PackedScene" uid="uid://bmtsi6bt6xph0" path="res://scenes/characters/eagle.tscn" id="51_sxl66"]
 [ext_resource type="PackedScene" uid="uid://dgdyprhadx57k" path="res://scenes/characters/hare.tscn" id="52_wmu1h"]
+[ext_resource type="PackedScene" uid="uid://h5j015botpx1" path="res://scenes/ui/hud.tscn" id="54_y3y6u"]
 
 [sub_resource type="Gradient" id="Gradient_ppc7g"]
 interpolation_mode = 1
@@ -672,6 +673,21 @@ _data = {
 "move": SubResource("Animation_io6xa")
 }
 
+[sub_resource type="Animation" id="Animation_0tyub"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(456, -462)]
+}
+
 [sub_resource type="Animation" id="Animation_ig5c4"]
 resource_name = "move"
 length = 10.0
@@ -687,21 +703,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(456, -462), Vector2(-312, -462)]
-}
-
-[sub_resource type="Animation" id="Animation_0tyub"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(456, -462)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i7e11"]
@@ -968,5 +969,7 @@ position = Vector2(248, 156)
 [node name="Camera" parent="." node_paths=PackedStringArray("players") instance=ExtResource("43_ckdfl")]
 position = Vector2(0, 156)
 players = [NodePath("../Player")]
+
+[node name="HUD" parent="." instance=ExtResource("54_y3y6u")]
 
 [connection signal="reached" from="Props/Flag" to="." method="_on_flag_reached"]
