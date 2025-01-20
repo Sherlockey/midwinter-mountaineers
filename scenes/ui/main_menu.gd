@@ -8,6 +8,8 @@ extends Control
 
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	
 	if SaveGame.load_data() == null:
 		high_score_label.text = "High Score: 00000"
 	else:
@@ -18,6 +20,7 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	var game : Game = game_scene.instantiate() as Game
 	get_tree().root.add_child(game)
 	game.create_one_player_game()
@@ -26,6 +29,7 @@ func _on_play_button_pressed() -> void:
 
 
 func _on_play_coop_button_pressed() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	var game : Game = game_scene.instantiate() as Game
 	get_tree().root.add_child(game)
 	game.create_two_player_game()
